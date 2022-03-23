@@ -26,130 +26,161 @@
 <body>
     <header></header>
     <main>
-        <div class="container">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-                <div class="col mt-5">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-header">
-                            <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
-                            <span class="float-end">
-                                <i class="fa-solid fa-circle" style="color: rgb(0, 179, 0);"></i> online
-                            </span>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-3" style="background-color:red; height:100vh;">
+                    <div class="container" style="background-color:blue; height: inherit;">
+                        <div>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <label for="host-search">Pesquisar host</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input id="host-search" type="text" placeholder="hostname ou IP">
+                                    </td>
+                                    <td>
+                                        <input type="submit" value="ok">
+                                    </td>                            
+                                </tr>
+                            </table>
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title">PC03-SINFO01</h5>
-                            <ul class="list-group" style="list-style: none;">
-                                <li>192.168.1.6</li>
-                                <li>Linux Debian</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col mt-5">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-header">
-                            <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
-                            <span class="float-end">
-                                <i class="fa-solid fa-circle" style="color: rgb(0, 179, 0);"></i> online
-                            </span>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">PC03-SINFO01</h5>
-                            <ul class="list-group" style="list-style: none;">
-                                <li>192.168.1.6</li>
-                                <li>Linux Debian</li>
-                            </ul>
+                        <div>
+                            <button>+</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col mt-5">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-header">
-                            <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
-                            <span class="float-end">
-                                <i class="fa-solid fa-circle" style="color: rgb(0, 179, 0);"></i> online
-                            </span>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">PC03-SINFO01</h5>
-                            <ul class="list-group" style="list-style: none;">
-                                <li>192.168.1.6</li>
-                                <li>Linux Debian</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <div class="col-9">
+                    <div class="container">
+                        <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
+                            <div class="col mt-3">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-header">
+                                        <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
+                                        <span class="float-end">
+                                            <i class="fa-solid fa-circle" style="color: rgb(0, 179, 0);"></i> online
+                                        </span>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">PC03-SINFO01</h5>
+                                        <ul class="list-group" style="list-style: none;">
+                                            <li>192.168.1.6</li>
+                                            <li>Linux Debian</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
 
-                <div class="col mt-5">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-header">
-                            <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
-                            <span class="float-end">
-                                <i class="fa-solid fa-circle" style="color: rgb(0, 179, 0);"></i> online
-                            </span>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">PC03-SINFO01</h5>
-                            <ul class="list-group" style="list-style: none;">
-                                <li>192.168.1.6</li>
-                                <li>Linux Debian</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col mt-5">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-header">
-                            <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
-                            <span class="float-end">
-                                <i class="fa-solid fa-circle" style="color: rgb(0, 179, 0);"></i> online
-                            </span>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">PC03-SINFO01</h5>
-                            <ul class="list-group" style="list-style: none;">
-                                <li>192.168.1.6</li>
-                                <li>Linux Debian</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                            <div class="col mt-3">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-header">
+                                        <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
+                                        <span class="float-end">
+                                            <i class="fa-solid fa-circle" style="color: rgb(0, 179, 0);"></i> online
+                                        </span>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">PC03-SINFO01</h5>
+                                        <ul class="list-group" style="list-style: none;">
+                                            <li>192.168.1.6</li>
+                                            <li>Linux Debian</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
 
-                <div class="col mt-5">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-header">
-                            <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
-                            <span class="float-end">
-                                <i class="fa-solid fa-circle" style="color: rgb(0, 179, 0);"></i> online
-                            </span>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">PC03-SINFO01</h5>
-                            <ul class="list-group" style="list-style: none;">
-                                <li>192.168.1.6</li>
-                                <li>Linux Debian</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                            <div class="col mt-3">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-header">
+                                        <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
+                                        <span class="float-end">
+                                            <i class="fa-solid fa-circle" style="color: rgb(0, 179, 0);"></i> online
+                                        </span>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">PC03-SINFO01</h5>
+                                        <ul class="list-group" style="list-style: none;">
+                                            <li>192.168.1.6</li>
+                                            <li>Linux Debian</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
 
-                <div class="col mt-5">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-header">
-                            <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
-                            <span class="float-end">
-                                <i class="fa-solid fa-circle" style="color: rgb(0, 179, 0);"></i> online
-                            </span>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">PC03-SINFO01</h5>
-                            <ul class="list-group" style="list-style: none;">
-                                <li>192.168.1.6</li>
-                                <li>Linux Debian</li>
-                            </ul>
+                            <div class="col mt-3">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-header">
+                                        <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
+                                        <span class="float-end">
+                                            <i class="fa-solid fa-circle" style="color: rgb(0, 179, 0);"></i> online
+                                        </span>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">PC03-SINFO01</h5>
+                                        <ul class="list-group" style="list-style: none;">
+                                            <li>192.168.1.6</li>
+                                            <li>Linux Debian</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col mt-3">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-header">
+                                        <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
+                                        <span class="float-end">
+                                            <i class="fa-solid fa-circle" style="color: rgb(0, 179, 0);"></i> online
+                                        </span>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">PC03-SINFO01</h5>
+                                        <ul class="list-group" style="list-style: none;">
+                                            <li>192.168.1.6</li>
+                                            <li>Linux Debian</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col mt-3">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-header">
+                                        <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
+                                        <span class="float-end">
+                                            <i class="fa-solid fa-circle" style="color: rgb(0, 179, 0);"></i> online
+                                        </span>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">PC03-SINFO01</h5>
+                                        <ul class="list-group" style="list-style: none;">
+                                            <li>192.168.1.6</li>
+                                            <li>Linux Debian</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col mt-3">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-header">
+                                        <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
+                                        <span class="float-end">
+                                            <i class="fa-solid fa-circle" style="color: rgb(0, 179, 0);"></i> online
+                                        </span>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">PC03-SINFO01</h5>
+                                        <ul class="list-group" style="list-style: none;">
+                                            <li>192.168.1.6</li>
+                                            <li>Linux Debian</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
