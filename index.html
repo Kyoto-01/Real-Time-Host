@@ -14,13 +14,25 @@
      <title>Real Time Host</title>
 
      <style>
-         .card-icon{
-            width: 40px;
-         }
+        #sidebar {
+            height: 100vh;
+            background-color: rgb(117, 172, 255);
+        }
+      
+        @media (max-width: 992px) {
+            #sidebar {
+                width: 100vw;
+                height: 50px;
+            }
+        }
 
-         .fa-circle{
+        .card-icon {
+            width: 40px;
+        }
+
+        .fa-circle {
             font-size: 10px;
-         }
+        }
      </style>
 </head>
 <body>
@@ -28,36 +40,22 @@
     <main>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-3" style="background-color:red; height:100vh;">
-                    <div class="container" style="background-color:blue; height: inherit;">
-                        <div>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <label for="host-search">Pesquisar host</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input id="host-search" type="text" placeholder="hostname ou IP">
-                                    </td>
-                                    <td>
-                                        <input type="submit" value="ok">
-                                    </td>                            
-                                </tr>
-                            </table>
-                        </div>
-                        <div>
-                            <button>+</button>
-                        </div>
+                <div id="sidebar" class="col-3 position-fixed">
+                    <div class="mb-3">
+                        <label for="search" class="form-label">Pesquisar host</label>
+                        <input id="search" type="text" class="form-control" placeholder="hostname ou IP">
+                        <button>Ir</button>
+                    </div>
+                    <div>
+                        <button>+</button>
                     </div>
                 </div>
 
-                <div class="col-9">
+                <div id="card-list" class="col offset-0 offset-lg-3 mt-5">
                     <div class="container">
-                        <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
-                            <div class="col mt-3">
-                                <div class="card" style="width: 18rem;">
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+                            <div class="col mt-4">
+                                <div class="card">
                                     <div class="card-header">
                                         <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
                                         <span class="float-end">
@@ -74,8 +72,8 @@
                                 </div>
                             </div>
 
-                            <div class="col mt-3">
-                                <div class="card" style="width: 18rem;">
+                            <div class="col mt-4">
+                                <div class="card">
                                     <div class="card-header">
                                         <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
                                         <span class="float-end">
@@ -92,8 +90,8 @@
                                 </div>
                             </div>
 
-                            <div class="col mt-3">
-                                <div class="card" style="width: 18rem;">
+                            <div class="col mt-4">
+                                <div class="card">
                                     <div class="card-header">
                                         <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
                                         <span class="float-end">
@@ -110,8 +108,8 @@
                                 </div>
                             </div>
 
-                            <div class="col mt-3">
-                                <div class="card" style="width: 18rem;">
+                            <div class="col mt-4">
+                                <div class="card">
                                     <div class="card-header">
                                         <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
                                         <span class="float-end">
@@ -128,8 +126,8 @@
                                 </div>
                             </div>
                             
-                            <div class="col mt-3">
-                                <div class="card" style="width: 18rem;">
+                            <div class="col mt-4">
+                                <div class="card">
                                     <div class="card-header">
                                         <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
                                         <span class="float-end">
@@ -146,8 +144,8 @@
                                 </div>
                             </div>
 
-                            <div class="col mt-3">
-                                <div class="card" style="width: 18rem;">
+                            <div class="col mt-4">
+                                <div class="card">
                                     <div class="card-header">
                                         <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
                                         <span class="float-end">
@@ -164,8 +162,8 @@
                                 </div>
                             </div>
 
-                            <div class="col mt-3">
-                                <div class="card" style="width: 18rem;">
+                            <div class="col mt-4">
+                                <div class="card">
                                     <div class="card-header">
                                         <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
                                         <span class="float-end">
@@ -183,8 +181,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div>   
+            </div>  
         </div>
     </main>
     <footer></footer>
