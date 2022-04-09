@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <button type="button" class="btn btn-light" name="add" value="adicionar host" style="width:18vw; height:50px;"><i class="fa-solid fa-plus"></i></button>
+                        <button type="button" class="btn btn-primary" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addhostModal" name="add" value="adicionar host" style="width:18vw; height:50px;"><i class="fa-solid fa-plus" ></i></button>
                     </div>
                 </div>
 
@@ -47,6 +47,41 @@
         </div>
     </main>
     <footer></footer>
+
+    <!-- Modal -->
+
+<!-- Modal -->
+<div class="modal fw-bold" id="addhostModal" tabindex="-1" role="dialog" aria-labelledby="addhostLabel">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 text-align="center" class="modal-title" id="addhostLabel"><b>CADASTRAR NOVO HOST</b></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Nome:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Endereço IP:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Sistema Operacional:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="./js/src/main.js" type="module"></script>
