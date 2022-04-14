@@ -1,7 +1,6 @@
-const hosts = [
-    {
+const hosts = {
+    "20220414001": {
         general: {
-            id: 1,
             hostname: 'PC01-SINFO01',
             ip: '192.168.1.6',
             os: 'Linux Debian',
@@ -50,9 +49,8 @@ const hosts = [
             },
         ],
     },
-    {
+    "20220414002": {
         general: {
-            id: 2,
             hostname: 'PC02-SINFO01',
             ip: '192.168.1.7',
             os: 'Linux Ubuntu',
@@ -101,9 +99,8 @@ const hosts = [
             },
         ],
     },
-    {
+    "20220414003": {
         general: {
-            id: 3,
             hostname: 'PC03-SINFO01',
             ip: '192.168.1.8',
             os: 'Windows 10',
@@ -152,9 +149,8 @@ const hosts = [
             },
         ],
     },
-    {
+    "20220414004": {
         general: {
-            id: 4,
             hostname: 'PC04-SINFO01',
             ip: '192.168.1.9',
             os: 'IOS',
@@ -203,9 +199,8 @@ const hosts = [
             },
         ],
     },
-    {
+    "20220414005": {
         general: {
-            id: 5,
             hostname: 'PC05-SINFO01',
             ip: '192.168.1.10',
             os: 'Linux Debian',
@@ -254,9 +249,8 @@ const hosts = [
             },
         ],
     },
-    {
+    "20220414006": {
         general: {
-            id: 6,
             hostname: 'PC06-SINFO01',
             ip: '192.168.1.11',
             os: 'Linux Debian',
@@ -305,9 +299,8 @@ const hosts = [
             },
         ],
     },
-    {
+    "20220414007": {
         general: {
-            id: 7,
             hostname: 'PC07-SINFO01',
             ip: '192.168.1.12',
             os: 'Linux CentOS',
@@ -356,6 +349,6 @@ const hosts = [
             },
         ],
     },
-];
+};
 
 export { hosts };
