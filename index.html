@@ -31,7 +31,7 @@
           <div style="margin-top: 60px;">
             <label for="search" class="form-label">Pesquisar host</label>
             <div class="d-flex justify-content-start">
-              <input id="search" class="form-control me-2" type="text" placeholder="hostname ou IP" style="width:70%;">
+              <input id="search" class="form-control me-2" type="text" placeholder="hostname ou IP" autocomplete="off" style="width:70%;">
               <button type="button" class="btn btn-light" name="search" value="ir" style="width:58px;"><i
                   class="fa-solid fa-magnifying-glass"></i></button>
             </div>
@@ -80,6 +80,22 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
           <button type="button" class="btn btn-primary">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="details-modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Detalhes de Monitoramento</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
