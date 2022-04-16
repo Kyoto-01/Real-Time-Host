@@ -23,31 +23,29 @@ const hosts = {
             clock_max: 3100, // MHz
             clock_min: 1600, // MHz
         },
-        nic: [
-            {
+        nic: {
+            'enp0s3': {
                 ip: '192.168.1.6',
                 mask: '255.255.255.0',
                 mac: 'ab:cd:ef:12:34:56',
                 tx_pckts: 84802,
                 rx_pckts: 107049,
             },
-        ],
-        devices: [
-            {
-                name: 'sda1',
+        },
+        devices: {
+            'sda1': {
                 used: 230025547776, // bytes
                 available: 199471177728, // bytes
                 total: 429496725504, // bytes
                 mount_point: '/mnt/hd_files',
             },
-            {
-                name: 'sda2',
+            'sda2': {
                 used: 11439345664, // bytes
                 available: 52312444928, // bytes
                 total: 67198562304, // bytes
                 mount_point: '/',
             },
-        ],
+        },
     },
     "20220414002": {
         general: {
@@ -73,31 +71,29 @@ const hosts = {
             clock_max: 3100, // MHz
             clock_min: 1600, // MHz
         },
-        nic: [
-            {
+        nic: {
+            'enp0s3': {
                 ip: '192.168.1.6',
                 mask: '255.255.255.0',
                 mac: 'ab:cd:ef:12:34:56',
                 tx_pckts: 84802,
                 rx_pckts: 107049,
             },
-        ],
-        devices: [
-            {
-                name: 'sda1',
+        },
+        devices: {
+            'sda1': {
                 used: 230025547776, // bytes
                 available: 199471177728, // bytes
                 total: 429496725504, // bytes
                 mount_point: '/mnt/hd_files',
             },
-            {
-                name: 'sda2',
+            'sda2': {
                 used: 11439345664, // bytes
                 available: 52312444928, // bytes
                 total: 67198562304, // bytes
                 mount_point: '/',
             },
-        ],
+        },
     },
     "20220414003": {
         general: {
@@ -123,31 +119,29 @@ const hosts = {
             clock_max: 3100, // MHz
             clock_min: 1600, // MHz
         },
-        nic: [
-            {
+        nic: {
+            'enp0s3': {
                 ip: '192.168.1.6',
                 mask: '255.255.255.0',
                 mac: 'ab:cd:ef:12:34:56',
                 tx_pckts: 84802,
                 rx_pckts: 107049,
             },
-        ],
-        devices: [
-            {
-                name: 'sda1',
+        },
+        devices: {
+            'sda1': {
                 used: 230025547776, // bytes
                 available: 199471177728, // bytes
                 total: 429496725504, // bytes
                 mount_point: '/mnt/hd_files',
             },
-            {
-                name: 'sda2',
+            'sda2': {
                 used: 11439345664, // bytes
                 available: 52312444928, // bytes
                 total: 67198562304, // bytes
                 mount_point: '/',
             },
-        ],
+        },
     },
     "20220414004": {
         general: {
@@ -173,31 +167,29 @@ const hosts = {
             clock_max: 3100, // MHz
             clock_min: 1600, // MHz
         },
-        nic: [
-            {
+        nic: {
+            'enp0s3': {
                 ip: '192.168.1.6',
                 mask: '255.255.255.0',
                 mac: 'ab:cd:ef:12:34:56',
                 tx_pckts: 84802,
                 rx_pckts: 107049,
             },
-        ],
-        devices: [
-            {
-                name: 'sda1',
+        },
+        devices: {
+            'sda1': {
                 used: 230025547776, // bytes
                 available: 199471177728, // bytes
                 total: 429496725504, // bytes
                 mount_point: '/mnt/hd_files',
             },
-            {
-                name: 'sda2',
+            'sda2': {
                 used: 11439345664, // bytes
                 available: 52312444928, // bytes
                 total: 67198562304, // bytes
                 mount_point: '/',
             },
-        ],
+        },
     },
     "20220414005": {
         general: {
@@ -223,31 +215,29 @@ const hosts = {
             clock_max: 3100, // MHz
             clock_min: 1600, // MHz
         },
-        nic: [
-            {
+        nic: {
+            'enp0s3': {
                 ip: '192.168.1.6',
                 mask: '255.255.255.0',
                 mac: 'ab:cd:ef:12:34:56',
                 tx_pckts: 84802,
                 rx_pckts: 107049,
             },
-        ],
-        devices: [
-            {
-                name: 'sda1',
+        },
+        devices: {
+            'sda1': {
                 used: 230025547776, // bytes
                 available: 199471177728, // bytes
                 total: 429496725504, // bytes
                 mount_point: '/mnt/hd_files',
             },
-            {
-                name: 'sda2',
+            'sda2': {
                 used: 11439345664, // bytes
                 available: 52312444928, // bytes
                 total: 67198562304, // bytes
                 mount_point: '/',
             },
-        ],
+        },
     },
     "20220414006": {
         general: {
@@ -273,31 +263,29 @@ const hosts = {
             clock_max: 3100, // MHz
             clock_min: 1600, // MHz
         },
-        nic: [
-            {
+        nic: {
+            'enp0s3': {
                 ip: '192.168.1.6',
                 mask: '255.255.255.0',
                 mac: 'ab:cd:ef:12:34:56',
                 tx_pckts: 84802,
                 rx_pckts: 107049,
             },
-        ],
-        devices: [
-            {
-                name: 'sda1',
+        },
+        devices: {
+            'sda1': {
                 used: 230025547776, // bytes
                 available: 199471177728, // bytes
                 total: 429496725504, // bytes
                 mount_point: '/mnt/hd_files',
             },
-            {
-                name: 'sda2',
+            'sda2': {
                 used: 11439345664, // bytes
                 available: 52312444928, // bytes
                 total: 67198562304, // bytes
                 mount_point: '/',
             },
-        ],
+        },
     },
     "20220414007": {
         general: {
@@ -323,31 +311,29 @@ const hosts = {
             clock_max: 3100, // MHz
             clock_min: 1600, // MHz
         },
-        nic: [
-            {
+        nic: {
+            'enp0s3': {
                 ip: '192.168.1.6',
                 mask: '255.255.255.0',
                 mac: 'ab:cd:ef:12:34:56',
                 tx_pckts: 84802,
                 rx_pckts: 107049,
             },
-        ],
-        devices: [
-            {
-                name: 'sda1',
+        },
+        devices: {
+            'sda1': {
                 used: 230025547776, // bytes
                 available: 199471177728, // bytes
                 total: 429496725504, // bytes
                 mount_point: '/mnt/hd_files',
             },
-            {
-                name: 'sda2',
+            'sda2': {
                 used: 11439345664, // bytes
                 available: 52312444928, // bytes
                 total: 67198562304, // bytes
                 mount_point: '/',
             },
-        ],
+        },
     },
 };
 
