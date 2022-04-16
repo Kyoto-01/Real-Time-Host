@@ -40,7 +40,10 @@ function create_host_card(location, host_id){
                 <ul class="list-group" style="list-style: none;">
                     <li>${host.general.ip}</li>
                     <li>${host.general.os}</li>
-                </ul>
+                    <div class="col-lg-12" style="text-align: right;">
+                      <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-delconfirm" name="delconfirm"><i class="fa fa-trash"></i></button>
+                    </div>
+                </ul>               
             </div>
         </div>
     </div>`;
