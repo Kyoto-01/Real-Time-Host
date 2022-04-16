@@ -1,5 +1,9 @@
 import { hosts } from "../data/hosts.js";
 
+/*
+    Funções relacionadas á exibição de informações de hosts
+*/
+
 function load_hosts(){
     const location = document.querySelector("#card-list .container .row");
 
@@ -8,11 +12,23 @@ function load_hosts(){
     }
 }
 
+function show_host_details(host_id){
+    const host = hosts[host_id];
+    const modal = document.getElementById('details-modal');
+    const location = modal.querySelector('.modal-body');
+    let details = get_host_details(host);
+
+    location.insertAdjacentHTML('beforeend', details); 
+
+    const bootstrap_modal = new bootstrap.Modal(modal);
+    bootstrap_modal.show();
+}
+
 function create_host_card(location, host_id){
     const host = hosts[host_id];
     const card = `
     <div class="col mt-4">
-        <div id="host-${host_id}" class="card" onclick="show_details(${host_id});">
+        <div id="host-${host_id}" class="card" onclick="show_host_details(${host_id});">
             <div class="card-header">
                 <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
                 <span class="float-end">
@@ -32,43 +48,51 @@ function create_host_card(location, host_id){
     location.insertAdjacentHTML('beforeend', card);
 }
 
-function show_details(host_id){
-    const selected_host = hosts[host_id];
-    const modal = document.querySelector("#details-modal");
-    const location = modal.querySelector('.modal-body');
-    let details = '';
+function get_host_details(host){
+    let hostDetails = '';
 
-    for (let property in selected_host) {
-        details += `
-        <div id="${property}-detail" class="detail-item">
-            <p>${property}</p>
-            <table><tbody>`;
-
-        for (let subproperty in selected_host[property]){
-            if (typeof selected_host[property][subproperty] == 'object'){
-                details += `<tr><th scope="row" rowspan="${Object.keys(selected_host[property][subproperty]).length + 1}">${subproperty}</th></tr>`;
-                for (let subsubproperty in selected_host[property][subproperty]){
-                    details += `<tr><td>${subsubproperty}</td><td>${selected_host[property][subproperty][subsubproperty]}</td></tr>`;
-                }
-            }
-            else{
-                details += `
-                <tr>
-                    <th scope="row">${subproperty}</th>
-                    <td>${selected_host[property][subproperty]}</td>
-                </tr>`;
-            }
-        }
-
-        details += `</tbody></table></div><hr>`;
+    for (let category in host) {
+        const categoryObject = host[category];
+        hostDetails += `
+        <div id="${category}-detail" class="detail-item">
+            <p>${category}</p>
+            <table>
+                <tbody>
+                    ${get_host_properties(categoryObject)}
+                </tbody>
+            </table>
+        </div>
+        <hr>`;
     }
 
-    location.insertAdjacentHTML('beforeend', details); 
-    let bootstrap_modal = new bootstrap.Modal(modal);
-
-    bootstrap_modal.show();
+    return hostDetails;
 }
 
-window.show_details = show_details;
+function get_host_properties(propertyList){
+    let propertiesDetails = '';
+
+    for (let propertyName in propertyList){
+        const propertyValue = propertyList[propertyName];
+
+        if (typeof propertyValue == 'object'){
+            propertiesDetails += `
+            <tr class="text-center">
+                <td>${propertyName}</td>
+            </tr>`;
+            propertiesDetails += get_host_properties(propertyValue);
+        }
+        else{
+            propertiesDetails += `
+            <tr>
+                <th scope="row">${propertyName}</th>
+                <td>${propertyValue}</td>
+            </tr>`;
+        }
+    }
+
+    return propertiesDetails;
+}
+
+window.show_host_details = show_host_details;
 
 export {load_hosts}
