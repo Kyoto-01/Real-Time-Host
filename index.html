@@ -53,50 +53,53 @@
   </main>
   <footer></footer>
 
-  <!-- Add host modal -->
-  <div class="modal fade fw-bold" id="addhostModal" tabindex="-1" role="dialog" aria-labelledby="addhostLabel">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 text-align="center" class="modal-title" id="addhostLabel"><b>CADASTRAR NOVO HOST</b></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="recipient-name" class="col-form-label">Nome:</label>
-              <input type="text" class="form-control" id="recipient-name">
-            </div>
-            <div class="mb-3">
-              <label for="recipient-name" class="col-form-label">Endereço IP:</label>
-              <input type="text" class="form-control" id="recipient-name">
-            </div>
-            <div class="mb-3">
-              <label for="recipient-name" class="col-form-label">Sistema Operacional:</label>
-              <input type="text" class="form-control" id="recipient-name">
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-          <button type="button" class="btn btn-primary">Salvar</button>
+  <!-- conjunto de modais desta página -->
+  <div id="modal-set">
+    <!-- Add host modal -->
+    <div class="modal fade fw-bold" id="addhostModal" tabindex="-1" role="dialog" aria-labelledby="addhostLabel">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 text-align="center" class="modal-title" id="addhostLabel"><b>CADASTRAR NOVO HOST</b></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Nome:</label>
+                <input type="text" class="form-control" id="recipient-name">
+              </div>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Endereço IP:</label>
+                <input type="text" class="form-control" id="recipient-name">
+              </div>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Sistema Operacional:</label>
+                <input type="text" class="form-control" id="recipient-name">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-primary">Salvar</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Details modal -->
-  <div class="modal fade" id="details-modal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Detalhes de Monitoramento</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="close">Close</button>
+    <!-- delete host confirm modal -->
+    <div class="modal fade" id="modal-delconfirm" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class=" odal-title">confirma?</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="close">Close</button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,91 +1,143 @@
-import { hosts } from "../data/hosts.js";
 
 /*
     Funções relacionadas á exibição de informações de hosts
 */
 
-function load_hosts(){
-    const location = document.querySelector("#card-list .container .row");
+function load_hosts(hostList, parentSelector){
+    const parent = document.querySelector(parentSelector);
 
-    for (const host in hosts){
-        create_host_card(location, host);
+    for (const hostID in hostList){
+        const hostData = hostList[hostID];
+        create_host_card(parent, hostID, hostData);
     }
 }
 
-function show_host_details(host_id){
-    const host = hosts[host_id];
-    const modal = document.getElementById('details-modal');
-    const location = modal.querySelector('.modal-body');
-    let details = get_host_details(host);
+function create_host_card(parent, hostId, hostData){
+    const hostCardHTML = `
+    <div class="col mt-4">
+        <div id="host-${hostId}" class="card">
+            <div class="card-header">
+                <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
+                <span class="float-end">
+                    <i class="fa-solid fa-circle ${hostData.general.online ? 'fa-circle-on' : 'fa-circle-off' }"></i> ${hostData.general.online ? 'online' : 'offline'}
+                </span>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">${hostData.general.hostname}</h5>
+                <ul class="list-group" style="list-style: none;">
+                    <li>${hostData.general.ip}</li>
+                    <li>${hostData.general.os}</li>
+                </ul>               
+            </div>
+            <div class="card-footer d-flex flex-row justify-content-end">
+                <div id="btn-host-details" class="ms-2">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#host-details-modal" name="host_details">
+                        Detalhes
+                    </button>
+                </div>
+                <div id="btn-del-host" class="ms-2">
+                    <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-delconfirm" name="del_confirm">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>`;
+    
+    parent.insertAdjacentHTML('beforeend', hostCardHTML);
 
-    location.insertAdjacentHTML('beforeend', details); 
+    document.querySelector(`#host-${hostId} #btn-host-details`).onclick = function(){
+        show_host_details(hostData);
+    };
+}
+
+function show_host_details(hostData){
+    const modal = create_host_details_modal(
+        'body #modal-set',
+        'host-details-modal',
+        `Detalhes de Monitoramento ( ${hostData.general.hostname} - ${hostData.general.ip} )`);
+    const parent = modal.querySelector('.modal-body');
+    let detailsHTML = get_host_details(hostData);
+
+    parent.insertAdjacentHTML('beforeend', detailsHTML); 
 
     const bootstrap_modal = new bootstrap.Modal(modal);
     bootstrap_modal.show();
 }
 
-function create_host_card(location, host_id){
-    const host = hosts[host_id];
-    const card = `
-    <div class="col mt-4">
-        <div id="host-${host_id}" class="card" onclick="show_host_details(${host_id});">
-            <div class="card-header">
-                <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
-                <span class="float-end">
-                    <i class="fa-solid fa-circle ${host.general.online ? 'fa-circle-on' : 'fa-circle-off' }"></i> ${host.general.online ? 'online' : 'offline'}
-                </span>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">${host.general.hostname}</h5>
-                <ul class="list-group" style="list-style: none;">
-                    <li>${host.general.ip}</li>
-                    <li>${host.general.os}</li>
-                    <div class="col-lg-12" style="text-align: right;">
-                      <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-delconfirm" name="delconfirm"><i class="fa fa-trash"></i></button>
-                    </div>
-                </ul>               
-            </div>
+function create_host_details_modal(parentSelector, modalID, modalTitle){
+    const parent = document.querySelector(parentSelector);
+    const modalHTML = `
+    <div class="modal fade" id="${modalID}" tabindex="-1">
+      <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">${modalTitle}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+          </div>
         </div>
+      </div>
     </div>`;
-    
-    location.insertAdjacentHTML('beforeend', card);
+
+    parent.insertAdjacentHTML('beforeend', modalHTML);
+
+    const modal = document.getElementById(modalID);
+
+    modal.addEventListener('hidden.bs.modal', function(){
+       modal.remove();
+    });
+
+    return modal;
 }
 
-function get_host_details(host){
-    let hostDetails = '';
+function get_host_details(hostData){
+    let hostDataHTML = '';
 
-    for (let category in host) {
-        const categoryObject = host[category];
-        hostDetails += `
-        <div id="${category}-detail" class="detail-item">
-            <p>${category}</p>
-            <table>
+    for (let dataCategory in hostData) {
+        const categoryObject = hostData[dataCategory];
+        hostDataHTML += `
+        <div id="${dataCategory}-detail" class="detail-item">
+            <table class="table table-bordered table-primary">
+                <thead>
+                    <tr>
+                        <th style="background-color: rgb(42, 100, 187); color: white;" class="text-center" scope="col" colspan="999">
+                            ${dataCategory}
+                        </th>
+                    </tr>
+                </thead>
                 <tbody>
                     ${get_host_properties(categoryObject)}
                 </tbody>
             </table>
-        </div>
-        <hr>`;
+        </div>`;
     }
 
-    return hostDetails;
+    return hostDataHTML;
 }
 
 function get_host_properties(propertyList){
-    let propertiesDetails = '';
+    let propertyListHTML = '';
 
     for (let propertyName in propertyList){
         const propertyValue = propertyList[propertyName];
 
         if (typeof propertyValue == 'object'){
-            propertiesDetails += `
-            <tr class="text-center">
-                <td>${propertyName}</td>
+            propertyListHTML += `
+            <tr>
+                <th scope="row" rowspan=${Object.keys(propertyValue).length + 1}>${propertyName}</th>
+            </tr>
+            ${get_host_properties(propertyValue)}
+            <tr>
+                <td colspan="999" style="background-color: transparent;"></td>
             </tr>`;
-            propertiesDetails += get_host_properties(propertyValue);
         }
         else{
-            propertiesDetails += `
+            propertyListHTML += `
             <tr>
                 <th scope="row">${propertyName}</th>
                 <td>${propertyValue}</td>
@@ -93,9 +145,7 @@ function get_host_properties(propertyList){
         }
     }
 
-    return propertiesDetails;
+    return propertyListHTML;
 }
 
-window.show_host_details = show_host_details;
-
-export {load_hosts}
+export { load_hosts };
