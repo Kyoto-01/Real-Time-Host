@@ -29,77 +29,97 @@
       <div class="row d-flex flex-row-reverse">
         <div id="sidebar" class="col-3 d-flex flex-column justify-content-between align-items-center position-fixed">
           <div style="margin-top: 60px;">
-            <label for="search" class="form-label">Pesquisar host</label>
+            <label for="search-host" class="form-label">Pesquisar host</label>
             <div class="d-flex justify-content-start">
-              <input id="search" class="form-control me-2" type="text" placeholder="hostname ou IP" autocomplete="off" style="width:70%;">
-              <button type="button" class="btn btn-light" name="search" value="ir" style="width:58px;"><i
+              <input id="search-host" class="form-control me-2" type="text" placeholder="hostname ou IP" autocomplete="off"
+                style="width:70%;">
+              <button type="button" class="btn btn-light" name="search-host" value="go" style="width:58px;"><i
                   class="fa-solid fa-magnifying-glass"></i></button>
             </div>
-          </div>
+          </div> 
           <div class="mb-3">
-            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addhostModal" name="add"
-              value="adicionar host" style="width:18vw; height:50px;"><i class="fa-solid fa-plus"></i></button>
+            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#add-host-modal" name="add-host"
+              value="add" style="width:18vw; height:50px;"><i class="fa-solid fa-plus"></i></button>
           </div>
         </div>
 
+        <!-- Estrutura onde os cartões dos hosts serão criados dinâmicamente -->
         <div id="card-list" class="col mt-5">
           <div class="container">
             <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+              <!-- Serão criados aqui -->
             </div>
           </div>
         </div>
       </div>
     </div>
   </main>
-  <footer></footer>
 
-  <!-- conjunto de modais desta página -->
+  <!-- set of modals used in this page -->
   <div id="modal-set">
     <!-- Add host modal -->
-    <div class="modal fade fw-bold" id="addhostModal" tabindex="-1" role="dialog" aria-labelledby="addhostLabel">
-      <div class="modal-dialog modal-dialog-centered" role="document">
+    <form id="add-host-form">
+      <div class="modal fade fw-bold" id="add-host-modal" tabindex="-1" aria-labelledby="add-host-label" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title fw-bold text-uppercase" id="add-host-label">cadastrar novo host</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="add-host-name" class="col-form-label">Nome:</label>
+                <input type="text" class="form-control" id="add-host-name" autocomplete="off">
+              </div>
+              <div class="mb-3">
+                <label for="add-host-ip" class="col-form-label">Endereço IP:</label>
+                <input type="text" class="form-control" id="add-host-ip" autocomplete="off" required>
+              </div>
+              <div class="mb-3">
+                <label for="add-host-so" class="col-form-label">Sistema Operacional:</label>
+                <input type="text" class="form-control" id="add-host-so" autocomplete="off">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- delete host confirm modal -->
+    <div class="modal fade" id="del-host-confirm-modal" tabindex="-1" aria-labelledby="del-host-confirm-label">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 text-align="center" class="modal-title" id="addhostLabel"><b>CADASTRAR NOVO HOST</b></h5>
+            <h5 class="modal-title" id="del-host-confirm-label">confirma?</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form>
-              <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">Nome:</label>
-                <input type="text" class="form-control" id="recipient-name">
-              </div>
-              <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">Endereço IP:</label>
-                <input type="text" class="form-control" id="recipient-name">
-              </div>
-              <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">Sistema Operacional:</label>
-                <input type="text" class="form-control" id="recipient-name">
-              </div>
-            </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-            <button type="button" class="btn btn-primary">Salvar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Fechar</button>
+            <button type="button" class="btn btn-danger">Deletar</button>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- delete host confirm modal -->
-    <div class="modal fade" id="modal-delconfirm" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class=" odal-title">confirma?</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="close">Close</button>
-          </div>
+  <!-- host details modal -->
+  <div class="modal fade" id="details-host-modal" tabindex="-1" aria-labelledby="details-host-label">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="details-host-label"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Fechar</button>
         </div>
       </div>
     </div>
@@ -109,6 +129,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
+
   <script src="./js/src/main.js" type="module"></script>
 </body>
 
