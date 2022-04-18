@@ -38,17 +38,15 @@
             </div>
           </div> 
           <div class="mb-3">
-            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#add-host-modal" name="add-host"
-              value="add" style="width:18vw; height:50px;"><i class="fa-solid fa-plus"></i></button>
+            <button id="add-host-btn" type="button" class="btn btn-light" name="add-host" value="add" style="width:18vw; height:50px;">
+              <i class="fa-solid fa-plus"></i>
+            </button>
           </div>
         </div>
 
         <!-- Estrutura onde os cartões dos hosts serão criados dinâmicamente -->
         <div id="card-list" class="col mt-5">
           <div class="container">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
-              <!-- Serão criados aqui -->
-            </div>
           </div>
         </div>
       </div>
@@ -82,7 +80,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-              <button type="submit" class="btn btn-primary">Salvar</button>
+              <button id="add-host-btn" type="submit" class="btn btn-primary">Salvar</button>
             </div>
           </div>
         </div>
@@ -94,14 +92,14 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="del-host-confirm-label">confirma?</h5>
+            <h5 class="modal-title" id="del-host-confirm-label">Remover host</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Fechar</button>
-            <button type="button" class="btn btn-danger">Deletar</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Deletar</button>
           </div>
         </div>
       </div>
