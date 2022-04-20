@@ -1,3 +1,8 @@
+
+/*
+    Funções relacionadas á exibição do modal de informações detalhadas de um host
+*/
+
 function show_host_details(hostData){
     const modal = document.getElementById('details-host-modal');
     const modalTitle = modal.querySelector('.modal-title');
@@ -19,22 +24,24 @@ function get_host_details(hostData){
     let hostDataHTML = '';
 
     for (let dataCategory in hostData) {
-        const categoryObject = hostData[dataCategory];
-        hostDataHTML += `
-        <div id="${dataCategory}-detail" class="detail-item">
-            <table class="table table-bordered table-primary">
-                <thead>
-                    <tr>
-                        <th style="background-color: rgb(42, 100, 187); color: white;" class="text-center" scope="col" colspan="999">
-                            ${dataCategory}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${get_host_properties(categoryObject)}
-                </tbody>
-            </table>
-        </div>`;
+        if (dataCategory != 'id'){
+            const categoryObject = hostData[dataCategory];
+            hostDataHTML += `
+            <div id="${dataCategory}-detail" class="detail-item">
+                <table class="table table-bordered table-primary">
+                    <thead>
+                        <tr>
+                            <th style="background-color: rgb(42, 100, 187); color: white;" class="text-center" scope="col" colspan="999">
+                                ${dataCategory}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${get_host_properties(categoryObject)}
+                    </tbody>
+                </table>
+            </div>`;
+        }
     }
 
     return hostDataHTML;
