@@ -1,42 +1,35 @@
+import { get_hosts, create_host, delete_host } from "./host_requests.js";
 import { show_host_details } from "./host_details.js";
 
 
 /*
-    Funções relacionadas á exibição dos cards de hosts
+    Funções e eventos relacionados á exibição, adição e exclsão de cards de hosts
 */
 
-const addHostModal = new bootstrap.Modal(document.getElementById('add-host-modal'));
-const delHostModal = new bootstrap.Modal(document.getElementById('del-host-confirm-modal'));
+add_host();
 
-let host_list;
-let host_cards_parent_selector;
-
-
-document.getElementById('add-host-btn').onclick = () => {
-    addHostModal.show();
+async function load_hosts(parentSelector){
+    const hostList = await get_hosts();
+    create_host_card_group(hostList, parentSelector);
 }
 
-
-function load_hosts(hostList, parentSelector){
-    host_list = hostList;
-    host_cards_parent_selector = parentSelector;
-    
+function create_host_card_group(hostList, parentSelector){
     const hostGroupHTML = '<div id="host-group" class="row row-cols-1 row-cols-md-2 row-cols-xl-3"></div>';
+
     let parent = document.querySelector(parentSelector);
     parent.innerHTML = hostGroupHTML;
 
     parent = parent.querySelector('#host-group');
-
-    for (const hostID in hostList){
-        create_host_card(parent, hostID, hostList);
+    for (let host of hostList){
+        create_host_card(parent, host);
     }
 }
 
-function create_host_card(parent, hostID, hostList){
-    const hostData = hostList[hostID];
+function create_host_card(parent, hostData){
+    const hostCardID = `host-${hostData.id}`;
     const hostCardHTML = `
     <div class="col mt-4">
-        <div id="host-${hostID}" class="card">
+        <div id="${hostCardID}" class="card">
             <div class="card-header">
                 <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
                 <span class="float-end">
@@ -67,63 +60,56 @@ function create_host_card(parent, hostID, hostList){
     
     parent.insertAdjacentHTML('beforeend', hostCardHTML);
 
-    document.querySelector(`#host-${hostID} .btn-primary`).onclick = function(){
-        show_host_details(hostData);
-    };
-
-    document.querySelector(`#host-${hostID} .btn-outline-danger`).onclick = function() {
-        del_host(parent, hostID, hostList);
-    }
+    document.querySelector(`#${hostCardID} .btn-primary`).onclick = () => show_host_details(hostData);
+    document.querySelector(`#${hostCardID} .btn-outline-danger`).onclick = () => del_host(hostData);
 }
 
 function add_host(){
+    const addHostModal = new bootstrap.Modal(document.getElementById('add-host-modal'));
     const form = document.getElementById('add-host-form');
+
+    document.getElementById('add-host-btn').onclick = () => addHostModal.show();
 
     form.onsubmit = (event) => {
 
         event.preventDefault();
 
         const id = new Date().getTime();
-        const hostname = form.querySelector('#add-host-name');
-        const ip = form.querySelector('#add-host-ip');
-        const os = form.querySelector('#add-host-so');
-        const parent = document.querySelector('#card-list .container .row');
+        const hostname = form.querySelector('#add-host-name').value;
+        const ip = form.querySelector('#add-host-ip').value;
+        const os = form.querySelector('#add-host-so').value;
 
-        host_list[id] = {
+        const newHost = {
+            id: id,
             general: {
-                hostname: hostname.value,
-                ip: ip.value,
-                os: os.value,
+                hostname: hostname,
+                ip: ip,
+                os: os,
                 online: true,
             },
         };
 
-        create_host_card(parent, id, host_list);
+        create_host(newHost);
 
-        hostname.value = '';
-        ip.value = '';
-        os.value = '';
-
+        form.reset();
         addHostModal.hide();
     };
 }
 
-function del_host(parent, hostID, hostList){
-    delHostModal.show();   
-
+function del_host(hostData){
     const delHostModalElement = document.getElementById('del-host-confirm-modal');
     const delHostModalBody = delHostModalElement.querySelector('.modal-body');
     const delHostConfirmButton = delHostModalElement.querySelector('.btn-danger');
-    const hostData = hostList[hostID];
+    const delHostModal = new bootstrap.Modal(delHostModalElement);   
 
     delHostModalBody.innerHTML = `Deseja remover o host ${hostData.general.hostname} (${hostData.general.ip})?`;
 
     delHostConfirmButton.onclick = function() {
-        delete hostList[hostID];
-        parent.remove();
-        load_hosts(hostList, host_cards_parent_selector);
+        delete_host(hostData.id);
     };
+
+    delHostModal.show();
 }
 
-export { load_hosts, add_host };
+export { load_hosts };
  

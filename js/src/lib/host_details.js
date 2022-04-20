@@ -1,3 +1,8 @@
+
+/*
+    Funções relacionadas á exibição do modal de informações detalhadas de um host
+*/
+
 function show_host_details(hostData){
     const modal = document.getElementById('details-host-modal');
     const modalTitle = modal.querySelector('.modal-title');
