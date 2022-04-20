@@ -1,0 +1,33 @@
+### Read hosts
+GET http://127.0.0.1:3000/hosts/
+
+### Create host
+POST http://127.0.0.1:3000/hosts/
+Content-Type: application/json
+
+{
+    "id": "ngsatst",
+    "general": {
+        "hostname": "PC-NAGISA",
+        "ip": "1.2.3.4",
+        "os": "Nagisa OS",
+        "online": true
+    }
+}
+
+### Update host
+PUT http://127.0.0.1:3000/hosts/ngsatst
+Content-Type: application/json
+
+{
+    "id": "ngsatst",
+    "general": {
+        "hostname": "PC-MISUZU",
+        "ip": "4.3.2.1",
+        "os": "Misuzu OS",
+        "online": true
+    }
+}
+
+### Delete host
+DELETE http://127.0.0.1:3000/hosts/ngsatst
