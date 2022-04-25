@@ -1,4 +1,4 @@
-import { get_hosts, create_host, delete_host } from "./host_requests.js";
+import api from "../services/api.js";
 import { show_host_details } from "./host_details.js";
 
 
@@ -6,10 +6,12 @@ import { show_host_details } from "./host_details.js";
     Funções e eventos relacionados á exibição, adição e exclsão de cards de hosts
 */
 
+const hostsResource = '/hosts';
+
 add_host();
 
 async function load_hosts(parentSelector){
-    const hostList = await get_hosts();
+    const hostList = await api.read(hostsResource);
     create_host_card_group(hostList, parentSelector);
 }
 
@@ -89,7 +91,7 @@ function add_host(){
             },
         };
 
-        create_host(newHost);
+        api.create(hostsResource, newHost);
 
         form.reset();
         addHostModal.hide();
@@ -105,7 +107,7 @@ function del_host(hostData){
     delHostModalBody.innerHTML = `Deseja remover o host ${hostData.general.hostname} (${hostData.general.ip})?`;
 
     delHostConfirmButton.onclick = function() {
-        delete_host(hostData.id);
+        api.destroy(`${hostsResource}/${hostData.id}`);
     };
 
     delHostModal.show();
