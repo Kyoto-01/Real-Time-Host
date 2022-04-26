@@ -75,4 +75,4 @@ function get_host_properties(propertyList){
     return propertyListHTML;
 }
 
-export { show_host_details }
+export default { show_host_details }

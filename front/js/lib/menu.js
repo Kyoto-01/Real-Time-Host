@@ -13,18 +13,23 @@ const min_window_width = 992;
 let showing_menu_flag = true;
 
 
-window.onresize = () => {
-   handle_menu();
-}
+// Função inicializadora que prepara o menu para ser manipulado
+function load_menu(){
+    window.onresize = () => {
+        handle_menu();
+    }
 
-// nesse ponto a largura de tela já é mobile
-menu_icon.onclick = () => {
-    if (showing_menu_flag){
-        hide_menu();
+    // nesse ponto a largura de tela já é mobile
+    menu_icon.onclick = () => {
+        if (showing_menu_flag){
+            hide_menu();
+        }
+        else{
+            show_menu();
+        }
     }
-    else{
-        show_menu();
-    }
+
+    handle_menu();
 }
 
 function handle_menu(){
@@ -63,4 +68,4 @@ function show_menu(){
     }
 }
 
-export { handle_menu };
+export default { load_menu };

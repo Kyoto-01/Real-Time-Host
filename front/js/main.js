@@ -1,7 +1,6 @@
-import { load_hosts } from './lib/host_cards.js';
-import { handle_menu } from './menu.js';
+import hostCards from './lib/host_cards.js';
+import menu from './lib/menu.js';
 
 
-handle_menu();
-
-load_hosts('#card-list .container');
+menu.load_menu();
+hostCards.load_hosts('#card-list .container');
