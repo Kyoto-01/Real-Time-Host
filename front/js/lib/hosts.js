@@ -10,7 +10,7 @@ const hostsResource = '/hosts';
 
 
 // eventos relacionados ás funções deste script
-function host_events(){
+function host_events() {
     add_host_events();
 }
 
@@ -63,7 +63,7 @@ async function del_host(hostData) {
     delHostModal.show();
 }
 
-async function get_hosts(){
+async function get_hosts() {
     return await api.read(hostsResource);
 }
 

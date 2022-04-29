@@ -14,17 +14,17 @@ let showing_menu_flag = true;
 
 
 // Função inicializadora que prepara o menu para ser manipulado
-function load_menu(){
+function load_menu() {
     window.onresize = () => {
         handle_menu();
     }
 
     // nesse ponto a largura de tela já é mobile
     menu_icon.onclick = () => {
-        if (showing_menu_flag){
+        if (showing_menu_flag) {
             hide_menu();
         }
-        else{
+        else {
             show_menu();
         }
     }
@@ -32,20 +32,20 @@ function load_menu(){
     handle_menu();
 }
 
-function handle_menu(){
+function handle_menu() {
 
     // largura mobile -> esconde menu e mostra botão de menu
     // largura desktop -> mostra o menu e esconde botão de menu
 
-    if (window.innerWidth <= min_window_width){
+    if (window.innerWidth <= min_window_width) {
         hide_menu();
     }
-    else{
+    else {
         show_menu();
     }
 }
 
-function hide_menu(){
+function hide_menu() {
     showing_menu_flag = false;
 
     menu_sidebar.style = `
@@ -53,17 +53,17 @@ function hide_menu(){
     width: 1px;
     height: 1px;
     left: -1000px;
-    top: -1000px;`;  
+    top: -1000px;`;
 }
 
-function show_menu(){
+function show_menu() {
     showing_menu_flag = true;
 
     menu_sidebar.style = `
     position: relative;
     height: 100vh;`;
 
-    if (window.innerWidth <= min_window_width){
+    if (window.innerWidth <= min_window_width) {
         menu_sidebar.style.width = '50vw';
     }
 }
