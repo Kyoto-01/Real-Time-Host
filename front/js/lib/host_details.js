@@ -1,9 +1,11 @@
+import format from './data_format.js'
+
 
 /*
     Funções relacionadas á exibição do modal de informações detalhadas de um host
 */
 
-function show_host_details(hostData){
+function show_host_details(hostData) {
     const modal = document.getElementById('details-host-modal');
     const modalTitle = modal.querySelector('.modal-title');
     const modalBody = modal.querySelector('.modal-body');
@@ -13,18 +15,21 @@ function show_host_details(hostData){
         ${get_host_details(hostData)}
     </div>`;
 
-    modalTitle.innerHTML = `Detalhes de Monitoramento ( ${hostData.general.hostname} - ${hostData.general.ip} )`;
-    modalBody.innerHTML = detailsHTML; 
+    modalTitle.innerHTML = `Detalhes de Monitoramento ( ${hostData.general.hostname} - ${hostData.general.IP} )`;
+    modalBody.innerHTML = detailsHTML;
 
     const bootstrapModal = new bootstrap.Modal(modal);
     bootstrapModal.show();
 }
 
-function get_host_details(hostData){
+function get_host_details(hostData) {
     let hostDataHTML = '';
 
     for (let dataCategory in hostData) {
-        if (dataCategory != 'id'){
+
+        // dataCategory --> general, memory, cpu, ...
+
+        if (dataCategory != 'id') {
             const categoryObject = hostData[dataCategory];
             hostDataHTML += `
             <div id="${dataCategory}-detail" class="detail-item">
@@ -32,7 +37,7 @@ function get_host_details(hostData){
                     <thead>
                         <tr>
                             <th style="background-color: rgb(42, 100, 187); color: white;" class="text-center" scope="col" colspan="999">
-                                ${dataCategory}
+                                ${format.format_property_name(dataCategory, 'upper')}
                             </th>
                         </tr>
                     </thead>
@@ -47,26 +52,28 @@ function get_host_details(hostData){
     return hostDataHTML;
 }
 
-function get_host_properties(propertyList){
+function get_host_properties(propertyList) {
     let propertyListHTML = '';
 
-    for (let propertyName in propertyList){
-        const propertyValue = propertyList[propertyName];
+    for (let propertyName in propertyList) {
+        const propertyValue = format.format_property_value(propertyName, propertyList[propertyName]);
 
-        if (typeof propertyValue == 'object'){
+        if (typeof propertyValue == 'object') {
             propertyListHTML += `
             <tr>
-                <th scope="row" rowspan=${Object.keys(propertyValue).length + 1}>${propertyName}</th>
+                <th scope="row" rowspan=${Object.keys(propertyValue).length + 1}>
+                    ${format.format_property_name(propertyName)}
+                </th>
             </tr>
             ${get_host_properties(propertyValue)}
             <tr>
                 <td colspan="999" style="background-color: transparent;"></td>
             </tr>`;
         }
-        else{
+        else {
             propertyListHTML += `
             <tr>
-                <th scope="row">${propertyName}</th>
+                <th scope="row">${format.format_property_name(propertyName, 'first upper')}</th>
                 <td>${propertyValue}</td>
             </tr>`;
         }
