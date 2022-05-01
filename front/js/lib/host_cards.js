@@ -39,14 +39,14 @@ function create_host_card(parent, hostData) {
             <div class="card-body">
                 <h5 class="card-title">${hostData.general.hostname}</h5>
                 <ul class="list-group" style="list-style: none;">
-                    <li>${hostData.general.IP}</li>
+                    <li>${hostData.general.ip}</li>
                     <li>${hostData.general.os}</li>
                 </ul>               
             </div>
             <div class="card-footer d-flex flex-row justify-content-end">
                 <div class="ms-2">
                     <button class="btn btn-primary" name="host_details">
-                        Detalhes
+                        <i class="fa-solid fa-circle-info"></i>
                     </button>
                 </div>
                 <div class="ms-2">
