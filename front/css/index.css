@@ -54,3 +54,8 @@ header {
 .fa-circle-off {
     color: rgb(179, 0, 0);
 }
+
+th.th-details {
+    background-color: rgb(42, 100, 187);
+    color: white;
+}
