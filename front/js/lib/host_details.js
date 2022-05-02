@@ -1,20 +1,21 @@
-import format from './data_format.js'
-
+import format from './data_format.js';
 
 /*
     Funções relacionadas á exibição do modal de informações detalhadas de um host
 */
 
+const detailsModal = document.getElementById('details-host-modal');
 let chartList = [];
+
+
+detailsModal.addEventListener('hidden.bs.modal', () => document.getElementById('details-host-list').remove());
 
 
 function show_host_details(hostData) {
 
     // para construir e mostrar modal com informações sobre um host
-
-    const modal = document.getElementById('details-host-modal');
-    const modalTitle = modal.querySelector('.modal-title');
-    const modalBody = modal.querySelector('.modal-body');
+    const modalTitle = detailsModal.querySelector('.modal-title');
+    const modalBody = detailsModal.querySelector('.modal-body');
 
     let detailsHTML = `
     <div id="details-host-list">
@@ -25,22 +26,14 @@ function show_host_details(hostData) {
     modalBody.innerHTML = detailsHTML;
     plot_charts();
 
-    const bootstrapModal = new bootstrap.Modal(modal);
+    const bootstrapModal = new bootstrap.Modal(detailsModal);
     bootstrapModal.show();
-    
-    // modal.addEventListener('hidden.bs.modal', () => {
-    //     // bootstrapModal.dispose();
-    //     // document.getElementById('details-host-list').remove();
-    //     //destroy_charts();
-    // });
 }
 
 function plot_charts() {
     for (let chart of chartList) {
         const canvas = document.getElementById(chart.canvas).getContext('2d');
         new Chart(canvas, chart.config);
-
-        //plotedCharts.push(newChart);
     }
 
     chartList = [];
@@ -69,19 +62,15 @@ function get_host_details(hostData) {
 
 function format_category_properties(categoryName, hostData) {
     const properties = hostData[categoryName];
-
-    switch (categoryName) {
-        case 'general':
-            return format_general_properties(properties);
-        case 'memory':
-            return format_memory_properties(properties);
-        case 'cpu':
-            return format_cpu_properties(properties);
-        case 'nic':
-            return format_nics_properties(properties);
-        case 'devices':
-            return format_devices_properties(properties);
+    const formatFunctions = {
+        general: format_general_properties,
+        memory: format_memory_properties,
+        cpu: format_cpu_properties,
+        nic: format_nics_properties,
+        devices: format_devices_properties,
     }
+
+    return formatFunctions[categoryName](properties);
 }
 
 function generate_property_table(title, rows) {
@@ -162,8 +151,17 @@ function format_memory_properties(properties) {
         {
             key: "Espaço Disponível",
             value: format.format_bytes(properties.available),
+        },
+        {
+            key: "Gráfico de Utilização",
+            value: `
+            <div id="memory-chart-container" class="m-auto" style="width:250px;height:250px;">
+                <canvas id="memory-chart"></canvas>
+            </div>`,
         }
     ]
+
+    record_memory_usage_chart("memory-chart", properties);
 
     return generate_property_table(title, rows);
 }
@@ -210,8 +208,17 @@ function format_cpu_properties(properties) {
         {
             key: "Clock Mínimo",
             value: `${properties.clock_min} MHz`,
+        },
+        {
+            key: "Gráfico de Utilização (%)",
+            value: `
+            <div id="cpu-chart-container" class="m-auto" style="width:50%;">
+                <canvas id="cpu-chart"></canvas>
+            </div>`,
         }
     ]
+
+    record_cpu_usage_chart('cpu-chart', properties);
 
     return generate_property_table(title, rows);
 }
@@ -284,29 +291,28 @@ function format_devices_properties(deviceList) {
             {
                 key: "Gráfico de Utilização",
                 value: `
-                <div id="dev-${dev}-chart-container" class="m-auto" style="width:250px;height:250px;">
+                <div id="dev-${dev}-chart-container" class="m-auto" style="width:350px;height:350px;border:1px solid red;">
                     <canvas id="dev-${dev}-chart"></canvas>
                 </div>`,
             }
         ];
 
         rows.push(subRows);
-        record_device_usage_chart(dev, deviceList);
+        record_device_usage_chart(`dev-${dev}-chart`, properties);
     }
 
     return generate_property_table(title, rows);
 }
 
-function record_device_usage_chart(deviceName, deviceList) {
-    const properties = deviceList[deviceName];
+function record_device_usage_chart(canvasID, properties) {
     const chart_data = {
-        canvas: `dev-${deviceName}-chart`,
+        canvas: canvasID,
         config: {
             type: 'pie',
             data: {
-                labels: ['Espaço utilizado', 'Espaço livre'],
+                labels: ['Espaço utilizado', 'Espaço disponível'],
                 datasets: [{
-                    label: `Utilização de ${deviceName}`,
+                    label: `Utilização do Disco`,
                     data: [properties.used, properties.available],
                     backgroundColor: [
                         'rgba(255, 0, 0, 0.5)',
@@ -324,8 +330,72 @@ function record_device_usage_chart(deviceName, deviceList) {
     chartList.push(chart_data);
 }
 
-function record_memory_usage_chart() { }
+function record_memory_usage_chart(canvasID, properties) {
+    const chart_data = {
+        canvas: canvasID,
+        config: {
+            type: 'pie',
+            data: {
+                labels: ['Espaço utilizado', 'Espaço disponível'],
+                datasets: [{
+                    label: `Utilização da Memória`,
+                    data: [properties.used, properties.available],
+                    backgroundColor: [
+                        'rgba(255, 0, 0, 0.5)',
+                        'rgba(0, 255, 0, 0.5)',
+                    ],
+                    borderColor: [
+                        'rgba(100, 0, 0, 1)',
+                        'rgba(0, 100, 0, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+        }
+    }
+    chartList.push(chart_data);
+}
 
-function record_cpu_usage_chart() { }
+function record_cpu_usage_chart(canvasID, properties) {
+    // const labels = Array.apply(0, Array(60)).map((_, i) => 60 - i);
+    // labels[0] += ' seg.';
+
+    const chart_data = {
+        canvas: canvasID,
+        config: {
+            type: 'gauge',
+            data: {
+                datasets: [{
+                    value: 0.5,
+                    minValue: 0,
+                    data: [1, 2, 3, 4],
+                    backgroundColor: ['green', 'yellow', 'orange', 'red'],
+                }]
+            },
+            options: {
+                needle: {
+                    radiusPercentage: 2,
+                    widthPercentage: 3.2,
+                    lengthPercentage: 80,
+                    color: 'rgba(0, 0, 0, 1)'
+                },
+                valueLabel: {
+                    display: true,
+                    formatter: (value) => {
+                        return '$' + Math.round(value);
+                    },
+                    color: 'rgba(255, 255, 255, 1)',
+                    backgroundColor: 'rgba(0, 0, 0, 1)',
+                    borderRadius: 5,
+                    padding: {
+                        top: 10,
+                        bottom: 10
+                    }
+                }
+            }
+        }
+    }
+    chartList.push(chart_data);
+}
 
 export default { show_host_details }
