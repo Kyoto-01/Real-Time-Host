@@ -342,15 +342,6 @@
           "mount_point": "/"
         }
       }
-    },
-    {
-      "id": 1651417512819,
-      "general": {
-        "hostname": "dasf",
-        "ip": "asfsaf",
-        "os": "asfasf",
-        "online": true
-      }
     }
   ]
 }
