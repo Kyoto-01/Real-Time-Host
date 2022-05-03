@@ -1,11 +1,7 @@
-import format from './data_format.js';
-
-/*
-    Funções relacionadas á exibição do modal de informações detalhadas de um host
-*/
+import format from '../data_format.js';
+import hostCharts from './host_charts.js'
 
 const detailsModal = document.getElementById('details-host-modal');
-let chartList = [];
 
 
 detailsModal.addEventListener('hidden.bs.modal', () => document.getElementById('details-host-list').remove());
@@ -24,19 +20,10 @@ function show_host_details(hostData) {
 
     modalTitle.innerHTML = `Detalhes de Monitoramento ( ${hostData.general.hostname} - ${hostData.general.ip} )`;
     modalBody.innerHTML = detailsHTML;
-    plot_charts();
+    hostCharts.plot_charts();
 
     const bootstrapModal = new bootstrap.Modal(detailsModal);
     bootstrapModal.show();
-}
-
-function plot_charts() {
-    for (let chart of chartList) {
-        const canvas = document.getElementById(chart.canvas).getContext('2d');
-        new Chart(canvas, chart.config);
-    }
-
-    chartList = [];
 }
 
 function get_host_details(hostData) {
@@ -156,12 +143,12 @@ function format_memory_properties(properties) {
             key: "Gráfico de Utilização",
             value: `
             <div id="memory-chart-container" class="m-auto" style="width:250px;height:250px;">
-                <canvas id="memory-chart"></canvas>
+                <canvas id="memory-chart" style="width:inherit;height:inherit;"></canvas>
             </div>`,
         }
     ]
 
-    record_memory_usage_chart("memory-chart", properties);
+    hostCharts.record_memory_usage_chart("memory-chart", properties);
 
     return generate_property_table(title, rows);
 }
@@ -212,13 +199,13 @@ function format_cpu_properties(properties) {
         {
             key: "Gráfico de Utilização (%)",
             value: `
-            <div id="cpu-chart-container" class="m-auto" style="width:50%;">
-                <canvas id="cpu-chart"></canvas>
+            <div id="cpu-chart-container" class="m-auto" style="width:300px;height:200px;">
+                <canvas id="cpu-chart" style="width:inherit;height:inherit;"></canvas>
             </div>`,
         }
     ]
 
-    record_cpu_usage_chart('cpu-chart', properties);
+    hostCharts.record_cpu_usage_chart('cpu-chart', properties);
 
     return generate_property_table(title, rows);
 }
@@ -291,111 +278,17 @@ function format_devices_properties(deviceList) {
             {
                 key: "Gráfico de Utilização",
                 value: `
-                <div id="dev-${dev}-chart-container" class="m-auto" style="width:350px;height:350px;border:1px solid red;">
-                    <canvas id="dev-${dev}-chart"></canvas>
+                <div id="dev-${dev}-chart-container" class="m-auto" style="width:250px;height:250px;">
+                    <canvas id="dev-${dev}-chart" style="width:inherit;height:inherit;"></canvas>
                 </div>`,
             }
         ];
 
         rows.push(subRows);
-        record_device_usage_chart(`dev-${dev}-chart`, properties);
+        hostCharts.record_device_usage_chart(`dev-${dev}-chart`, properties);
     }
 
     return generate_property_table(title, rows);
-}
-
-function record_device_usage_chart(canvasID, properties) {
-    const chart_data = {
-        canvas: canvasID,
-        config: {
-            type: 'pie',
-            data: {
-                labels: ['Espaço utilizado', 'Espaço disponível'],
-                datasets: [{
-                    label: `Utilização do Disco`,
-                    data: [properties.used, properties.available],
-                    backgroundColor: [
-                        'rgba(255, 0, 0, 0.5)',
-                        'rgba(0, 255, 0, 0.5)',
-                    ],
-                    borderColor: [
-                        'rgba(100, 0, 0, 1)',
-                        'rgba(0, 100, 0, 1)',
-                    ],
-                    borderWidth: 1
-                }]
-            },
-        }
-    }
-    chartList.push(chart_data);
-}
-
-function record_memory_usage_chart(canvasID, properties) {
-    const chart_data = {
-        canvas: canvasID,
-        config: {
-            type: 'pie',
-            data: {
-                labels: ['Espaço utilizado', 'Espaço disponível'],
-                datasets: [{
-                    label: `Utilização da Memória`,
-                    data: [properties.used, properties.available],
-                    backgroundColor: [
-                        'rgba(255, 0, 0, 0.5)',
-                        'rgba(0, 255, 0, 0.5)',
-                    ],
-                    borderColor: [
-                        'rgba(100, 0, 0, 1)',
-                        'rgba(0, 100, 0, 1)',
-                    ],
-                    borderWidth: 1
-                }]
-            },
-        }
-    }
-    chartList.push(chart_data);
-}
-
-function record_cpu_usage_chart(canvasID, properties) {
-    // const labels = Array.apply(0, Array(60)).map((_, i) => 60 - i);
-    // labels[0] += ' seg.';
-
-    const chart_data = {
-        canvas: canvasID,
-        config: {
-            type: 'gauge',
-            data: {
-                datasets: [{
-                    value: 0.5,
-                    minValue: 0,
-                    data: [1, 2, 3, 4],
-                    backgroundColor: ['green', 'yellow', 'orange', 'red'],
-                }]
-            },
-            options: {
-                needle: {
-                    radiusPercentage: 2,
-                    widthPercentage: 3.2,
-                    lengthPercentage: 80,
-                    color: 'rgba(0, 0, 0, 1)'
-                },
-                valueLabel: {
-                    display: true,
-                    formatter: (value) => {
-                        return '$' + Math.round(value);
-                    },
-                    color: 'rgba(255, 255, 255, 1)',
-                    backgroundColor: 'rgba(0, 0, 0, 1)',
-                    borderRadius: 5,
-                    padding: {
-                        top: 10,
-                        bottom: 10
-                    }
-                }
-            }
-        }
-    }
-    chartList.push(chart_data);
 }
 
 export default { show_host_details }
