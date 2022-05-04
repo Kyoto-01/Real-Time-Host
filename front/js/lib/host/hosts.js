@@ -31,6 +31,14 @@ function add_host_events() {
     };
 }
 
+async function filter_hosts(filterstring) {
+    const hosts = await get_hosts();
+    const filterhost = hosts.filter( h => h.general.hostname.toUpperCase().includes(filterstring.toUpperCase()) || h.general.ip.includes(filterstring) );
+    return filterhost;
+}
+
+
+
 async function add_host(form) {
     const id = new Date().getTime();
     const hostname = form.querySelector('#add-host-name').value;
@@ -68,4 +76,4 @@ async function get_hosts() {
 }
 
 
-export default { host_events, add_host, del_host, get_hosts };
+export default { host_events, add_host, del_host, get_hosts, filter_hosts };

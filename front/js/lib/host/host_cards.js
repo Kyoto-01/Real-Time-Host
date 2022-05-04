@@ -6,6 +6,11 @@ import hostDetails from "./host_details.js";
     Funções e eventos relacionados á exibição, adição e exclsão de cards de hosts
 */
 
+
+document.getElementById("search-btn").onclick = async function() {
+    const hostsearch = await hosts.filter_hosts(document.getElementById("search-host").value);
+    create_host_card_group(hostsearch, '#card-list .container');};
+
 async function load_hosts(parentSelector) {
     const hostList = await hosts.get_hosts();
 
