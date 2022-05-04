@@ -6,14 +6,10 @@
 <br>
 
 ## Sobre o projeto
-<hr>
 
 O projeto Real Time Hosts visa implementar através do protocolo SNMP (Simple Network Management Protocol) um sistema de monitoramento em tempo real para coleta e análise de informações sobre hosts.
 
-<br>
-
 ## Requisitos
-<hr>
 
 * json-server
   ```sh
@@ -22,10 +18,7 @@ O projeto Real Time Hosts visa implementar através do protocolo SNMP (Simple Ne
   npm start
   ```
 
-<br>
-
 ## Funcionalidades
-<hr>
 
 * Status de conexão dos hosts.
 * Informações básicas dos hosts na tela inicial: Nome, IP e Sistema operacional.
@@ -33,10 +26,7 @@ O projeto Real Time Hosts visa implementar através do protocolo SNMP (Simple Ne
 * Inclusão e exclusão de hosts.
 * Busca de hosts por hostname ou IP.
 
-<br>
-
 ## Screenshots
-<hr>
 
 <a href="https://www.imagebam.com/view/ME9X1ZU" target="_blank"><img src="https://thumbs4.imagebam.com/b2/ee/87/ME9X1ZU_t.jpg" alt="principal.jpg"/></a>
 <a href="https://www.imagebam.com/view/ME9X1ZL" target="_blank"><img src="https://thumbs4.imagebam.com/1b/1b/09/ME9X1ZL_t.jpg" alt="Modal detalhes 1.jpg"/></a>
@@ -46,12 +36,9 @@ O projeto Real Time Hosts visa implementar através do protocolo SNMP (Simple Ne
 <a href="https://www.imagebam.com/view/ME9X1ZQ" target="_blank"><img src="https://thumbs4.imagebam.com/8c/b5/f7/ME9X1ZQ_t.jpg" alt="Modal exclusão de host.jpg"/></a>
 <a href="https://www.imagebam.com/view/ME9X1ZR" target="_blank"><img src="https://thumbs4.imagebam.com/01/4e/6c/ME9X1ZR_t.jpg" alt="Pesquisa IP.jpg"/></a>
 <a href="https://www.imagebam.com/view/ME9X1ZS" target="_blank"><img src="https://thumbs4.imagebam.com/d5/50/62/ME9X1ZS_t.jpg" alt="Pesquisa Nome completo.jpg"/></a>
-<a href="https://www.imagebam.com/view/ME9X1ZT" target="_blank"><img src="https://thumbs4.imagebam.com/64/98/f4/ME9X1ZT_t.jpg" alt="Pesquisa Resumida.jpg"/></a>
- 
-<br>
+<img src="https://thumbs4.imagebam.com/64/98/f4/ME9X1ZT_t.jpg" alt="Pesquisa Resumida.jpg"/>
 
 ## Contatos
-<hr>
 
 * <a href="mailto:jonatas.mendes@academico.ifpb.edu.br">Jônatas Mendes da Cruz</a>
 * <a href="mailto:bezerra.carvalho@academico.ifpb.edu.br">José Raimundo Bezerra de Carvalho</a>
