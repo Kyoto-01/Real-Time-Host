@@ -1,13 +1,21 @@
-const jsonServer = require('json-server');
+import { dir } from 'console';
+import express from 'express';
+import morgan from 'morgan';
+import path from 'path';
 
+
+const app = express();
 const port = 3000;
-const server = jsonServer.create();
-const router = jsonServer.router('db.json');
-const middlewares = jsonServer.defaults();
+const dirname = path.resolve();
 
-server.use(middlewares);
-server.use(router);
 
-server.listen(port, () => {
-    console.log('Running: JSON server');
+app.use(express.static(path.join(dirname, '/static')))
+app.use(morgan('tiny'));
+
+app.get('/hosts', (req, res) => {
+    res.sendFile(path.join(dirname, 'db.json'));
+});
+
+app.listen(port, () => {
+    console.log(`Server is running in port ${port}`);
 });
