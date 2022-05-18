@@ -3,7 +3,6 @@
   <h2 align="center">Monitoramento de hosts em tempo real</h2>
 </div>
 <br>
-<br>
 
 ## Sobre o projeto
 
