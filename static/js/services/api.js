@@ -3,12 +3,11 @@
     Funções para manipulação da base de dados
 */
 
-const host = 'http://127.0.0.1';
-const port = 3000;
+const host = '';
 
 
 async function create(resource, data){
-    const url = `${host}:${port}${resource}`;
+    const url = `${host}${resource}`;
 
     const HTTPRequestConfig = {
         method: 'post',
@@ -24,7 +23,7 @@ async function create(resource, data){
 }
 
 async function read(resource){
-    const url = `${host}:${port}${resource}`;
+    const url = `${host}${resource}`;
     
     const response = await fetch(url);
     
@@ -32,7 +31,7 @@ async function read(resource){
 }
 
 async function destroy(resource){
-    const url = `${host}:${port}${resource}`;
+    const url = `${host}${resource}`;
 
     const HTTPRequestConfig = {
         method: 'delete',
