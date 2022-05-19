@@ -25,7 +25,7 @@ function create_host_card_group(hostList, parentSelector) {
     parent.innerHTML = hostGroupHTML;
 
     parent = parent.querySelector('#host-group');
-    for (let host of hostList) {
+    for (let host of hostList.hosts) {
         create_host_card(parent, host);
     }
 }
@@ -38,14 +38,14 @@ function create_host_card(parent, hostData) {
             <div class="card-header">
                 <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
                 <span class="float-end">
-                    <i class="fa-solid fa-circle ${hostData.general.online ? 'fa-circle-on' : 'fa-circle-off'}"></i> ${hostData.general.online ? 'online' : 'offline'}
+                    <i class="fa-solid fa-circle ${hostData.online ? 'fa-circle-on' : 'fa-circle-off'}"></i> ${hostData.online ? 'online' : 'offline'}
                 </span>
             </div>
             <div class="card-body">
-                <h5 class="card-title">${hostData.general.hostname}</h5>
+                <h5 class="card-title">${hostData.hostname}</h5>
                 <ul class="list-group" style="list-style: none;">
-                    <li>${hostData.general.ip}</li>
-                    <li>${hostData.general.os}</li>
+                    <li>${hostData.ip}</li>
+                    <li>${hostData.os}</li>
                 </ul>               
             </div>
             <div class="card-footer d-flex flex-row justify-content-end">
