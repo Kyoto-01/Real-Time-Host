@@ -3,4 +3,4 @@ import menu from './lib/menu.js';
 
 
 menu.load_menu();
-hostCards.load_hosts('#card-list .container');
+hostCards.load('#card-list .container');
