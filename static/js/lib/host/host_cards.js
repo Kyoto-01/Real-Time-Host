@@ -6,16 +6,63 @@ import hostDetails from "./host_details.js";
     Funções e eventos relacionados á exibição, adição e exclsão de cards de hosts
 */
 
+let HOST_LIST_PARENT = '';
 
-document.getElementById("search-btn").onclick = async function() {
-    const hostsearch = await hosts.filter_hosts(document.getElementById("search-host").value);
-    create_host_card_group(hostsearch, '#card-list .container');};
 
-async function load_hosts(parentSelector) {
-    const hostList = await hosts.get_hosts();
+function load(hostListParent){
+    HOST_LIST_PARENT = hostListParent;
 
-    hosts.host_events();
-    create_host_card_group(hostList, parentSelector);
+    add_host_event();
+    search_host_event();
+    load_hosts();
+}
+
+function search_host_event(){
+    document.getElementById("search-btn").onclick = async function() {
+        const hostsearch = await hosts.filter_hosts(document.getElementById("search-host").value);
+        create_host_card_group(hostsearch, HOST_LIST_PARENT);
+    };
+}
+
+function add_host_event() {
+    const addHostModal = new bootstrap.Modal(document.getElementById('add-host-modal'));
+    const form = document.getElementById('add-host-form');
+
+    document.getElementById('add-host-btn').onclick = () => addHostModal.show();
+
+    form.onsubmit = (event) => {
+
+        event.preventDefault();
+
+        hosts.add_host(form);
+
+        form.reset();
+        addHostModal.hide();
+
+        load_hosts(HOST_LIST_PARENT);
+    };
+}
+
+async function del_host_event(hostData) {
+    const delHostModalElement = document.getElementById('del-host-confirm-modal');
+    const delHostModalBody = delHostModalElement.querySelector('.modal-body');
+    const delHostConfirmButton = delHostModalElement.querySelector('.btn-danger');
+    const delHostModal = new bootstrap.Modal(delHostModalElement);
+
+    delHostModalBody.innerHTML = `Deseja remover o host ${hostData.hostname} (${hostData.ip})?`;
+
+    delHostConfirmButton.onclick = () => {
+        hosts.del_host(hostData);
+        load_hosts(HOST_LIST_PARENT);
+    };
+
+    delHostModal.show();
+}
+
+async function load_hosts(cached = true) {
+    const hostList = cached ? await hosts.get_hosts_cached() : await hosts.get_hosts();
+    
+    create_host_card_group(hostList, HOST_LIST_PARENT);
 }
 
 function create_host_card_group(hostList, parentSelector) {
@@ -66,9 +113,8 @@ function create_host_card(parent, hostData) {
     parent.insertAdjacentHTML('beforeend', hostCardHTML);
 
     document.querySelector(`#${hostCardID} .btn-primary`).onclick = () => hostDetails.show_host_details(hostData);
-    document.querySelector(`#${hostCardID} .btn-outline-danger`).onclick = () => hosts.del_host(hostData);
+    document.querySelector(`#${hostCardID} .btn-outline-danger`).onclick = () => del_host_event(hostData);
 }
 
 
-
-export default { load_hosts };
+export default { load };

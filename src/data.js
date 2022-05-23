@@ -1,48 +1,62 @@
 import fs from 'fs';
-import fetch from 'node-fetch';
-import path from 'path';
 
 
-const dirname = path.resolve();
-const dbPath = path.join(dirname, 'data', 'db.json');
-const staticPath = path.join(dirname, 'static');
-const registeredHosts = JSON.parse(fs.readFileSync(dbPath)).hosts;
+// caminho absoluto para o DB
+let DBPATH = '';
+// DB com diferentes "tabelas"
+let DBDATA = {};
 
 
-async function get_host_general_list(updateDB = false) {
-    const host_general_list = [];
+function load_db(path){
+    DBPATH = path;
+    DBDATA = JSON.parse(fs.readFileSync(path));
 
-    for (let host in registeredHosts) {
-        const ip = host.ip;
-
-        await fetch(`${ip}:5000/general`)
-            .then((value) => {
-                host_general_list.push(value);
-            }).catch(() => {
-                host_general_list.push(registeredHosts[host]);
-            });
-    }
-
-    if (updateDB) {
-        update_hosts_db(host_general_list);
-        console.log(`${dbPath} database was updated.`)
-    }
-
-    return {
-        hosts: host_general_list
-    };
+    return DBDATA;
 }
 
-function update_hosts_db(hosts) {
-    for (let host in hosts) {
-        registeredHosts[host] = hosts[host];
+function read(refresh = false){
+    if (refresh) {
+        return load_db(DBPATH);
     }
 
-    fs.writeFileSync(dbPath, JSON.stringify({
-            hosts: registeredHosts
-        })
-    );
+    return DBDATA;
+}
+
+function create(tableName, data) {
+    if (!(tableName in DBDATA)){
+        DBDATA[tableName] = [];
+    }
+    DBDATA[tableName].unshift(data);
+
+    refresh_db();
+
+    return data;
+}
+
+function update(tableName, id, newData) {
+    const index = DBDATA[tableName].findIndex(value => value.id === id);
+
+    DBDATA[tableName][index] = newData;
+
+    refresh_db();
+
+    return newData;
+}
+
+function remove(tableName, id){
+    const index = DBDATA[tableName].findIndex(value => value.id === id);
+    const removed = DBDATA[tableName][index];
+
+    DBDATA[tableName].splice(index, 1);
+
+    refresh_db();
+
+    return removed;
+}
+
+function refresh_db() {
+    fs.writeFileSync(DBPATH, JSON.stringify(DBDATA));
 }
 
 
-export default { dirname, dbPath, staticPath, get_host_general_list };
+export default { load_db, read, create, update, remove, refresh_db };
