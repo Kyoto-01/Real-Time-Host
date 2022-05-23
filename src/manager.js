@@ -38,18 +38,21 @@ async function fetch_hosts_general(hosts){
 async function fetch_host_general(host) {
     const ip = host.ip;
     const url = `http://${ip}:${agentPort}/general`;
+    let host_general = {};
 
     await fetch(url)
         .then(async (value) => {
             value = await value.json();
             value.id = host.id;
-            return value;
+            host_general = value;
         }).catch(() => {
-            return host;
+            host_general = host;
         });
+
+    return host_general;
 }
 
-async function get_host_all() { }
+async function get_host_all(host) { }
 
 
 export default { get_hosts_general, get_host_all };
