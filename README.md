@@ -6,16 +6,11 @@
 
 ## Sobre o projeto
 
-O projeto Real Time Hosts visa implementar através do protocolo SNMP (Simple Network Management Protocol) um sistema de monitoramento em tempo real para coleta e análise de informações sobre hosts.
+O projeto Real Time Hosts visa implementar um sistema de monitoramento em tempo real para coleta e análise de informações sobre hosts.
 
 ## Requisitos
 
-* json-server
-  ```sh
-  cd back/
-  npm install json-server
-  npm start
-  ```
+* Real-Time-Host-Agent instalado e rodando nas máquinas monitoradas
 
 ## Funcionalidades
 
