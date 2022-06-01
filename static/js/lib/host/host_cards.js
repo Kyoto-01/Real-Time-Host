@@ -61,8 +61,8 @@ async function del_host_event(hostData) {
 
 async function load_hosts(cached = true) {
     const hostList = cached ? await hosts.get_hosts_cached() : await hosts.get_hosts();
-    
-    create_host_card_group(hostList, HOST_LIST_PARENT);
+    console.log(hostList.hosts);
+    create_host_card_group(hostList.hosts, HOST_LIST_PARENT);
 }
 
 function create_host_card_group(hostList, parentSelector) {
@@ -72,7 +72,7 @@ function create_host_card_group(hostList, parentSelector) {
     parent.innerHTML = hostGroupHTML;
 
     parent = parent.querySelector('#host-group');
-    for (let host of hostList.hosts) {
+    for (let host of hostList) {
         create_host_card(parent, host);
     }
 }

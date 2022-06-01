@@ -6,24 +6,24 @@ POST http://127.0.0.1:3000/hosts/
 Content-Type: application/json
 
 {
-    "id": "ngsatst",
-    "hostname": "PC-NAGISA",
+    "id": "test",
+    "hostname": "PC-KYOTO",
     "ip": "1.2.3.4",
-    "os": "Nagisa OS",
+    "os": "Kyoto OS",
     "online": true
 }
 
 ### Update host
-PUT http://127.0.0.1:3000/hosts/?id=ngsatst
+PUT http://127.0.0.1:3000/hosts/?id=test
 Content-Type: application/json
 
 {
-    "id": "ngsatst",
-    "hostname": "PC-MISUZU",
+    "id": "test",
+    "hostname": "PC-OSAKA",
     "ip": "4.3.2.1",
-    "os": "Misuzu OS",
+    "os": "Osaka OS",
     "online": true
 }
 
 ### Delete host
-DELETE http://127.0.0.1:3000/hosts/?id=ngsatst
+DELETE http://127.0.0.1:3000/hosts/?id=test
