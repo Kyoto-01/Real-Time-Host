@@ -34,6 +34,7 @@ async function del_host(hostData) {
 
 async function get_hosts_cached() {
     return await api.read(`${hostsResource}/?cached=true`);
+    //return await api.read(`${hostsResource}`);
 }
 
 async function get_hosts() {

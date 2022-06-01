@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/hosts', async (req, res) => {
     const cached = Boolean(req.query.cached);
-    const hostList = await manager.get_hosts_general(hosts.read(), cached);
+    const hostList = await manager.get_hosts_general(hosts.read().hosts, cached);
     res.json(hostList);
 });
 
@@ -33,7 +33,8 @@ router.delete('/hosts', (req, res) => {
 
 // router.get('hosts/:id', (req, res) => {
 //     const id = req.params.id;
-//     res.sendFile(path.join(dirname, 'hosts.json'));
+//     const hostInfos = await manager.get_host_all(hosts.read(id));
+//     res.json(hostInfos);
 // });
 
 

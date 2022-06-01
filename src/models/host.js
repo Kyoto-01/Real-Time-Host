@@ -19,3 +19,16 @@ leituras e escritas em um arquivo de texto:
     fs.writeFileSync(caminho_do_json, JSON.stringify(objeto_javascript))
         converte o objeto javascript em JSON e escreve-o no arquivo JSON
  */
+import path from  'path';
+import fs from 'fs';
+
+
+const DBPATH = path.join(path.resolve("database", 'db.json'));
+
+
+function read() {
+   return JSON.parse(fs.readFileSync(DBPATH)) 
+}
+
+
+export default { read };
