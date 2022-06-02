@@ -51,6 +51,9 @@ function create_space_usage_chart(data, dataset_label) {
                     },
                 },
             },
+            animation: {
+                duration: 0
+            },
         },
     };
 
@@ -101,7 +104,7 @@ function record_cpu_usage_chart(canvasID, properties) {
                 valueLabel: {
                     display: true,
                     formatter: (value) => {
-                        return value + '%';
+                        return format.format_percent(value);
                     },
                     color: 'rgba(255, 255, 255, 1)',
                     backgroundColor: 'rgba(42, 100, 187, 1)',
@@ -125,6 +128,9 @@ function record_cpu_usage_chart(canvasID, properties) {
                         },
                     },
                 },
+                animation: {
+                    duration: 0
+                }
             }
         }
     };

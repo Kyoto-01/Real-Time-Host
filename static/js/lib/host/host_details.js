@@ -1,5 +1,6 @@
 import format from '../data_format.js';
-import hostCharts from './host_charts.js'
+import hostCharts from './host_charts.js';
+import hosts from './hosts.js';
 
 const detailsModal = document.getElementById('details-host-modal');
 
@@ -7,35 +8,42 @@ const detailsModal = document.getElementById('details-host-modal');
 detailsModal.addEventListener('hidden.bs.modal', () => document.getElementById('details-host-list').remove());
 
 
-function show_host_details(hostData) {
+async function refresh_host_details(hostData) {
 
     // para construir e mostrar modal com informações sobre um host
     const modalTitle = detailsModal.querySelector('.modal-title');
     const modalBody = detailsModal.querySelector('.modal-body');
 
-    let detailsHTML = `
-    <div id="details-host-list">
-        ${get_host_details(hostData)}
-    </div>`;
-
-    modalTitle.innerHTML = `Detalhes de Monitoramento ( ${hostData.general.hostname} - ${hostData.general.ip} )`;
-    modalBody.innerHTML = detailsHTML;
-    hostCharts.plot_charts();
+    await show_host_details(hostData, modalTitle, modalBody);
+    setInterval(async () => {
+        await show_host_details(hostData, modalTitle, modalBody);
+    }, 5000);
 
     const bootstrapModal = new bootstrap.Modal(detailsModal);
     bootstrapModal.show();
 }
 
+async function show_host_details(hostData, modalTitle, modalBody) {
+    const hostAll = await hosts.get_host_all(hostData);
+
+    let detailsHTML = `
+    <div id="details-host-list">
+        ${get_host_details(hostAll)}
+    </div>`;
+
+    modalTitle.innerHTML = `Detalhes de Monitoramento ( ${hostAll.general.hostname} - ${hostAll.general.ip} )`;
+    modalBody.innerHTML = detailsHTML;
+    hostCharts.plot_charts();
+}
+
 function get_host_details(hostData) {
 
     // para construir estrutura HTML para as informações do host
-
     let hostDataHTML = '';
 
     for (let categoryName in hostData) {
 
         // categoryName --> general, memory, cpu, ...
-
         if (categoryName != 'id') {
             hostDataHTML += `
             <div id="${categoryName}-detail" class="detail-item">
@@ -178,7 +186,7 @@ function format_cpu_properties(properties) {
         },
         {
             key: "Utilização",
-            value: `${properties.used}%`,
+            value: format.format_percent(properties.used),
         },
         {
             key: "Temperatura",
@@ -218,7 +226,7 @@ function format_nics_properties(nicList) {
         const properties = nicList[nic];
         const subRows = [
             {
-                key: nic, // nome da subrow
+                key: properties.name, // nome da subrow
                 value: Object.keys(properties).length + 1 // quantidade de rows que ocupa
             },
             {
@@ -256,7 +264,7 @@ function format_devices_properties(deviceList) {
         const properties = deviceList[dev];
         const subRows = [
             {
-                key: dev, // nome da subrow
+                key: properties.name, // nome da subrow
                 value: Object.keys(properties).length + 2, // quantidade de rows que ocupa
             },
             {
@@ -291,4 +299,4 @@ function format_devices_properties(deviceList) {
     return generate_property_table(title, rows);
 }
 
-export default { show_host_details }
+export default { refresh_host_details }

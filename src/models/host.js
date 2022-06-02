@@ -27,7 +27,7 @@ const DBPATH = path.join(path.resolve("database", 'db.json'));
 
 
 function read() {
-   return JSON.parse(fs.readFileSync(DBPATH)) 
+   return JSON.parse(fs.readFileSync(DBPATH)).hosts; 
 }
 
 

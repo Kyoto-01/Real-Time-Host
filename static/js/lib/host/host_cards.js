@@ -19,7 +19,8 @@ function load(hostListParent){
 
 function search_host_event(){
     document.getElementById("search-btn").onclick = async function() {
-        const hostsearch = await hosts.filter_hosts(document.getElementById("search-host").value);
+        const searchString = document.getElementById("search-host").value;
+        const hostsearch = await hosts.filter_hosts(searchString);
         create_host_card_group(hostsearch, HOST_LIST_PARENT);
     };
 }
@@ -61,8 +62,7 @@ async function del_host_event(hostData) {
 
 async function load_hosts(cached = true) {
     const hostList = cached ? await hosts.get_hosts_cached() : await hosts.get_hosts();
-    console.log(hostList.hosts);
-    create_host_card_group(hostList.hosts, HOST_LIST_PARENT);
+    create_host_card_group(hostList, HOST_LIST_PARENT);
 }
 
 function create_host_card_group(hostList, parentSelector) {
@@ -112,7 +112,7 @@ function create_host_card(parent, hostData) {
 
     parent.insertAdjacentHTML('beforeend', hostCardHTML);
 
-    document.querySelector(`#${hostCardID} .btn-primary`).onclick = () => hostDetails.show_host_details(hostData);
+    document.querySelector(`#${hostCardID} .btn-primary`).onclick = async () => hostDetails.refresh_host_details(hostData);
     document.querySelector(`#${hostCardID} .btn-outline-danger`).onclick = () => del_host_event(hostData);
 }
 
