@@ -21,9 +21,7 @@ async function get_hosts_general(hosts, cached = false) {
         host_general_list = await fetch_hosts_general(hosts);
     }
 
-    return {
-        hosts: host_general_list
-    };
+    return host_general_list;
 }
 
 async function fetch_hosts_general(hosts) {
@@ -39,7 +37,7 @@ async function fetch_hosts_general(hosts) {
 
 async function fetch_host_general(host) {
     const ip = host.ip;
-    const url = `http://${ip}:${agentPort}/all`;
+    const url = `http://${ip}:${agentPort}/general`;
     let hostGeneral = {};
 
     await fetch(url)
@@ -56,7 +54,7 @@ async function fetch_host_general(host) {
 
 async function get_host_all(host) {
     const ip = host.ip;
-    const url = `http://${ip}:${agentPort}/general`;
+    const url = `http://${ip}:${agentPort}/all`;
     let hostAll = {};
 
     await fetch(url)
@@ -65,10 +63,9 @@ async function get_host_all(host) {
             value.id = host.id;
             hostAll = value;
         }).catch(() => {
-            hostAll = host;
+            hostAll = { general: host };
         });
-
-    return host_general;
+    return hostAll;
 }
 
 

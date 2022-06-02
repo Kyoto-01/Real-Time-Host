@@ -9,11 +9,14 @@ const hostsResource = '/hosts';
 
 
 async function filter_hosts(filterstring) {
-    const hosts = await get_hosts();
-    const filterhost = hosts.filter(value => {
-        value.hostname.toUpperCase().includes(filterstring.toUpperCase()) || value.ip.includes(filterstring)
+    const hosts = await get_hosts_cached();
+    const filterHost = hosts.filter(value => {
+        return (
+            value.hostname.toUpperCase().includes(filterstring.toUpperCase()) || 
+            value.ip.includes(filterstring)
+        );
     });
-    return filterhost;
+    return filterHost;
 }
 
 async function add_host(form) {
@@ -34,12 +37,22 @@ async function del_host(hostData) {
 
 async function get_hosts_cached() {
     return await api.read(`${hostsResource}/?cached=true`);
-    //return await api.read(`${hostsResource}`);
 }
 
 async function get_hosts() {
     return await api.read(hostsResource);
 }
 
+async function get_host_all(host){
+    return await api.read(`${hostsResource}/${host.id}`)
+}
 
-export default { add_host, del_host, get_hosts_cached, get_hosts, filter_hosts };
+
+export default {
+    add_host,
+    del_host,
+    get_hosts_cached,
+    get_hosts,
+    get_host_all,
+    filter_hosts
+};

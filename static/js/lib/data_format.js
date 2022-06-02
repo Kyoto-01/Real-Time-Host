@@ -3,7 +3,7 @@
 
 function format_bytes(sizeBytes) {
     const units = ['B', 'KiB', 'MiB', 'GiB', 'TiB'];
-    let finalSize = sizeBytes;
+    let finalSize = parseInt(sizeBytes);
     let finalUnit = 0;
 
     while (finalSize >= 1024) {
@@ -20,4 +20,8 @@ function format_bool(value){
     return value ? 'Sim' : 'Não';
 }
 
-export default { format_bytes, format_bool }
+function format_percent(value){
+    return `${parseFloat(value).toFixed(1)}%`;
+}
+
+export default { format_bytes, format_bool, format_percent }
