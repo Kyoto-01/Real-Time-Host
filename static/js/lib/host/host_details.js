@@ -2,25 +2,37 @@ import format from '../data_format.js';
 import hostCharts from './host_charts.js';
 import hosts from './hosts.js';
 
-const detailsModal = document.getElementById('details-host-modal');
+
+const detailsModalElement = document.getElementById('details-host-modal');
+const detailsModalObject = new bootstrap.Modal(detailsModalElement);
+let detailsModalInterval;
+
+const waitModalElement = document.getElementById('wait-modal');
+const waitModalObject = new bootstrap.Modal(waitModalElement);
 
 
-detailsModal.addEventListener('hidden.bs.modal', () => document.getElementById('details-host-list').remove());
-
+detailsModalElement.addEventListener('hidden.bs.modal', () => {
+    clearInterval(detailsModalInterval);
+});
 
 async function refresh_host_details(hostData) {
-
     // para construir e mostrar modal com informações sobre um host
-    const modalTitle = detailsModal.querySelector('.modal-title');
-    const modalBody = detailsModal.querySelector('.modal-body');
+    const modalTitle = detailsModalElement.querySelector('.modal-title');
+    const modalBody = detailsModalElement.querySelector('.modal-body');
+
+    waitModalObject.show();
 
     await show_host_details(hostData, modalTitle, modalBody);
-    setInterval(async () => {
+    // aguarda algum tempo pra o caso da busca por detalhes ser rápida demais, isso para que o modal.hide() funcione corretamente.
+    await new Promise(resolve => setTimeout(resolve, 1000)); 
+
+    waitModalObject.hide();
+
+    detailsModalInterval = setInterval(async () => {
         await show_host_details(hostData, modalTitle, modalBody);
     }, 5000);
 
-    const bootstrapModal = new bootstrap.Modal(detailsModal);
-    bootstrapModal.show();
+    detailsModalObject.show();
 }
 
 async function show_host_details(hostData, modalTitle, modalBody) {

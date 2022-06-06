@@ -2,7 +2,7 @@
   "hosts": [
     {
       "id": "20220414001",
-      "hostname": "PC01-SINFO01",
+      "hostname": "PC-Casa",
       "ip": "127.0.0.1",
       "os": "Linux Debian",
       "online": false
