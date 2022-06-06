@@ -7,6 +7,8 @@ import hostDetails from "./host_details.js";
 */
 
 let HOST_LIST_PARENT = '';
+let HOST_FILTER_STRING = '';
+let LOADED_HOSTS = [];
 
 
 function load(hostListParent){
@@ -14,14 +16,18 @@ function load(hostListParent){
 
     add_host_event();
     search_host_event();
-    load_hosts();
+
+    load_hosts(); // para carregar rápido, com informações em "cache"
+    load_hosts(false); // para carregar informações atualizadas pela rede
+
+    setInterval(() => load_hosts(false), 10000);
 }
 
 function search_host_event(){
     document.getElementById("search-btn").onclick = async function() {
-        const searchString = document.getElementById("search-host").value;
-        const hostsearch = await hosts.filter_hosts(searchString);
-        create_host_card_group(hostsearch, HOST_LIST_PARENT);
+        HOST_FILTER_STRING = document.getElementById("search-host").value;
+        LOADED_HOSTS = await hosts.filter_hosts(HOST_FILTER_STRING, LOADED_HOSTS);
+        create_host_card_group(LOADED_HOSTS, HOST_LIST_PARENT);
     };
 }
 
@@ -61,8 +67,9 @@ async function del_host_event(hostData) {
 }
 
 async function load_hosts(cached = true) {
-    const hostList = cached ? await hosts.get_hosts_cached() : await hosts.get_hosts();
-    create_host_card_group(hostList, HOST_LIST_PARENT);
+    LOADED_HOSTS = cached ? await hosts.get_hosts_cached() : await hosts.get_hosts();
+    LOADED_HOSTS = await hosts.filter_hosts(HOST_FILTER_STRING, LOADED_HOSTS);
+    create_host_card_group(LOADED_HOSTS, HOST_LIST_PARENT);
 }
 
 function create_host_card_group(hostList, parentSelector) {

@@ -8,12 +8,10 @@ import api from '../../services/api.js';
 const hostsResource = '/hosts';
 
 
-async function filter_hosts(filterstring) {
-    const hosts = await get_hosts_cached();
+async function filter_hosts(filterString, hosts) {
     const filterHost = hosts.filter(value => {
         return (
-            value.hostname.toUpperCase().includes(filterstring.toUpperCase()) || 
-            value.ip.includes(filterstring)
+            value.hostname.toUpperCase().includes(filterString.toUpperCase()) || value.ip.includes(filterString)
         );
     });
     return filterHost;
