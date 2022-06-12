@@ -20,7 +20,7 @@ function load(hostListParent){
     load_hosts(); // para carregar rápido, com informações em "cache"
     load_hosts(false); // para carregar informações atualizadas pela rede
 
-    setInterval(() => load_hosts(false), 10000);
+    setInterval(() => load_hosts(false), 1000);
 }
 
 function search_host_event(){
