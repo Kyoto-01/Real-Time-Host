@@ -73,7 +73,7 @@ async function load_hosts(cached = true) {
 }
 
 function create_host_card_group(hostList, parentSelector) {
-    const hostGroupHTML = '<div id="host-group" class="row row-cols-1 row-cols-md-2 row-cols-xl-3"></div>';
+    const hostGroupHTML = '<div id="host-group" class="row row-cols-1 row-cols-md-2 row-cols-xl-4"></div>';
 
     let parent = document.querySelector(parentSelector);
     parent.innerHTML = hostGroupHTML;
