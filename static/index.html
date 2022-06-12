@@ -20,35 +20,45 @@
 </head>
 
 <body>
-  <header class="position-fixed">
-    <span id="site-name" class="ms-5 fw-bolder">Real Time Host</span>
-    <i id="menu-icon" class="fa-solid fa-bars me-5 mt-2"></i>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a id="site-name" class="navbar-brand" href="#">Real Time Host</a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation" onclick="this.blur()">
+          <i class="fa-solid fa-bars nav-icon"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a id="add-host-btn" class="nav-link" href="#" style="color: white;">Adicionar host</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" style="color: white;">Sair</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="/signup.html" style="color: white;">Cadastrar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/signin.html" style="color: white;">Entrar</a>
+            </li> -->
+          </ul>
+          <form id="search-form" class="d-flex search">
+            <input id="search-host" class="form-control me-2 search" type="text" placeholder="hostname ou IP"
+              aria-label="search-host" autocomplete="off">
+            <button id="search-btn" class="btn btn-light search" type="button"><i
+                class="fa-solid fa-magnifying-glass"></i></button>
+          </form>
+        </div>
+      </div>
+    </nav>
   </header>
+
   <main>
     <div class="container-fluid">
-      <div class="row d-flex flex-row-reverse">
-        <div id="sidebar" class="col-3 d-flex flex-column justify-content-between align-items-center position-fixed">
-          <div style="margin-top: 60px;">
-            <label for="search-host" class="form-label">Pesquisar host</label>
-            <div class="d-flex justify-content-start">
-              <input id="search-host" class="form-control me-2" type="text" placeholder="hostname ou IP"
-                autocomplete="off" style="width:70%;">
-              <button id="search-btn" type="button" class="btn btn-light" name="search-host" value="go" style="width:58px;"><i
-                  class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
-          </div>
-          <div class="mb-3 text-center" style="width: 100%;">
-            <button id="add-host-btn" type="button" class="btn btn-light" name="add-host" value="add"
-              style="width:80%; height:50px;">
-              <i class="fa-solid fa-plus"></i>
-            </button>
-          </div>
-        </div>
-
-        <!-- Estrutura onde os cartões dos hosts serão criados dinâmicamente -->
-        <div id="card-list" class="col mt-5">
-          <div class="container">
-          </div>
+      <div id="card-list" class="col mt-5">
+        <div class="container">
         </div>
       </div>
     </div>
@@ -144,7 +154,7 @@
   <script src="https://unpkg.com/chart.js@2.8.0/dist/Chart.bundle.js"></script>
   <script src="https://unpkg.com/chartjs-gauge@0.3.0/dist/chartjs-gauge.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
-  
+
   <script src="./js/main.js" type="module"></script>
 </body>
 
