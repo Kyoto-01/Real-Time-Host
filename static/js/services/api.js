@@ -1,15 +1,29 @@
-
 /*
-    Funções para manipulação da base de dados
+    Funções para manipulação de dados servidos pelo servidor
 */
 
-const host = '';
 
+async function send_request(resource, config, authorization) {
 
-async function create(resource, data){
-    const url = `${host}${resource}`;
+    // generic request function
 
-    const HTTPRequestConfig = {
+    const url = `${resource}`;
+
+    if (authorization) {
+        config.headers = { ...config.headers, 'Authorization': authorization };
+    }
+
+    return await fetch(url, config)
+            .then(async (res) => {
+            if (res.status !== 200) {
+                throw new Error(error);
+            }
+            return await res.json();
+        });
+}
+
+async function create(resource, data, authorization) {
+    const config = {
         method: 'post',
         headers: {
             'Content-type': 'application/json',
@@ -17,29 +31,23 @@ async function create(resource, data){
         body: JSON.stringify(data),
     };
 
-    const response = await fetch(url, HTTPRequestConfig);
-    
-    return await response.json();
+    return await send_request(resource, config, authorization);
 }
 
-async function read(resource){
-    const url = `${host}${resource}`;
-    
-    const response = await fetch(url);
-    
-    return await response.json();
+async function read(resource, authorization) {
+    const config = {
+        method: 'get',
+    }
+
+    return await send_request(resource, config, authorization);
 }
 
-async function destroy(resource){
-    const url = `${host}${resource}`;
-
-    const HTTPRequestConfig = {
+async function destroy(resource, authorization) {
+    const config = {
         method: 'delete',
     };
 
-    const response = await fetch(url, HTTPRequestConfig);
-
-    return await response.json();
+    return await send_request(resource, config, authorization);
 }
 
 export default { create, read, destroy }

@@ -1,4 +1,5 @@
 import api from '../../services/api.js';
+import Auth from '../../services/auth.js';
 
 
 /*
@@ -26,23 +27,39 @@ async function add_host(form) {
 
     const newHost = { id, hostname, ip, os, online };
 
-    return await api.create(hostsResource, newHost);
+    try {
+        return await api.create(hostsResource, newHost, `${Auth.authType} ${Auth.get_token()}`);
+    } catch (error) {
+        Auth.signout();
+    }
 }
 
 async function del_host(hostData) {
-    return await api.destroy(`${hostsResource}/?id=${hostData.id}`);
+    return await api.destroy(`${hostsResource}/?id=${hostData.id}`, `${Auth.authType} ${Auth.get_token()}`);
 }
 
 async function get_hosts_cached() {
-    return await api.read(`${hostsResource}/?cached=true`);
+    try {
+        return await api.read(`${hostsResource}/?cached=true`, `${Auth.authType} ${Auth.get_token()}`);
+    } catch (error) {
+        Auth.signout();
+    }
 }
 
 async function get_hosts() {
-    return await api.read(hostsResource);
+    try {
+        return await api.read(hostsResource, `${Auth.authType} ${Auth.get_token()}`);
+    } catch (error) {
+        Auth.signout();
+    }
 }
 
-async function get_host_all(host){
-    return await api.read(`${hostsResource}/${host.id}`)
+async function get_host_all(host) {
+    try {
+        return await api.read(`${hostsResource}/${host.id}`, `${Auth.authType} ${Auth.get_token()}`);
+    } catch (error) {
+        Auth.signout();
+    }
 }
 
 
