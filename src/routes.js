@@ -51,6 +51,13 @@ router.get('/hosts/:id', auth.is_authenticated, async (req, res) => {
     res.json(hostInfos);
 });
 
+router.post('/users', async (req, res) => {
+    const user = req.body;
+    const newUser = await userModel.create(user);
+
+    res.status(201).json(newUser);
+});
+
 router.post('/signin', async (req, res) => {
     const { email, password } = req.body;
 
@@ -65,7 +72,7 @@ router.post('/signin', async (req, res) => {
             const token = jwt.sign(
                 { userId },
                 process.env.SECRET,
-                { expiresIn: 15 } // 5min
+                { expiresIn: 120 } // 5min
             );
 
             res.json({ auth: true, token });
