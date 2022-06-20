@@ -70,6 +70,18 @@
       "username": "admin",
       "email": "admin@email.com",
       "password": "$2a$12$O5ni7OIYCE1er7Lh37IL7ey94CriNSWJQbVWDJknLlSWtZ4035/22"
+    },
+    {
+      "name": "kyoto",
+      "email": "kyoto@email.com",
+      "password": "$2b$12$Z6hHzphZwK6aDGCvbdw/H.how3vI3dMixcF0OhzUBObLRAn9Q8DK6",
+      "id": "1655693190537"
+    },
+    {
+      "name": "osaka",
+      "email": "osaka@email.com",
+      "password": "$2b$12$6Ae.frKy4syzCBg/gSGXVOr.suZkiBaEOjqgolGtu/dDiWGcos./.",
+      "id": "1655693331240"
     }
   ]
 }

@@ -14,9 +14,9 @@ async function send_request(resource, config, authorization) {
     }
 
     return await fetch(url, config)
-            .then(async (res) => {
-            if (res.status !== 200) {
-                throw new Error(error);
+        .then(async (res) => {
+            if (res.status === 401) {
+                throw new Error('Unauthorized');
             }
             return await res.json();
         });
