@@ -90,7 +90,7 @@ function create_host_card(parent, hostData) {
     <div class="col mt-4">
         <div id="${hostCardID}" class="card">
             <div class="card-header">
-                <img src="images/pc.svg" alt="PC" class="card-img-top card-icon"> 
+                <img src="imgs/pc.svg" alt="PC" class="card-img-top card-icon"> 
                 <span class="float-end">
                     <i class="fa-solid fa-circle ${hostData.online ? 'fa-circle-on' : 'fa-circle-off'}"></i> ${hostData.online ? 'online' : 'offline'}
                 </span>
