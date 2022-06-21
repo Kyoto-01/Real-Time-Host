@@ -2,12 +2,11 @@ import 'dotenv/config';
 import express from 'express';
 import morgan from 'morgan';
 import path from 'path';
-import Router from './routes.js';
+import Router from './routes/index.js';
 
 
 const dirname = path.resolve();
-const dbPath = path.join(dirname, 'database', 'db.json');
-const staticPath = path.join(dirname, 'static');
+const staticPath = path.join(dirname, 'public');
 
 const app = express();
 const port = 3000;

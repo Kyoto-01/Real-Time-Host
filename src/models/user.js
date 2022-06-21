@@ -3,7 +3,7 @@ import fs from 'fs';
 import bcrypt from 'bcrypt';
 
 
-const DBPATH = path.join(path.resolve("database", 'db.json'));
+const DBPATH = path.join(path.resolve('src', 'seeders', 'data.json'));
 const DB = () => JSON.parse(fs.readFileSync(DBPATH));
 
 const saltRounds = 12;

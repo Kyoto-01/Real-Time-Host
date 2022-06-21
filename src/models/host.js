@@ -23,7 +23,7 @@ import path from  'path';
 import fs from 'fs';
 
 
-const DBPATH = path.join(path.resolve("database", 'db.json'));
+const DBPATH = path.join(path.resolve('src', 'seeders', 'data.json'));
 
 
 function read() {

@@ -1,12 +1,12 @@
 {
-  "name": "back",
+  "name": "real-time-host",
   "version": "1.0.0",
-  "description": "",
-  "main": "src/main.js",
+  "description": "Web application for monitoring workstations in real time",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/main.js",
-    "dev": "nodemon src/main.js"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",

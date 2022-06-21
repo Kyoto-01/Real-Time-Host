@@ -2,11 +2,11 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import hostsGeneralManager from './manager/hosts_general.js';
-import hostAllManager from './manager/host_all.js';
-import hostsModel from './models/host.js';
-import userModel from './models/user.js';
-import auth from './middlewares/auth.js';
+import hostsGeneralManager from '../manager/hosts_general.js';
+import hostAllManager from '../manager/host_all.js';
+import hostsModel from '../models/host.js';
+import userModel from '../models/user.js';
+import auth from '../middlewares/auth.js';
 
 
 const router = express.Router();
@@ -72,7 +72,7 @@ router.post('/signin', async (req, res) => {
             const token = jwt.sign(
                 { userId },
                 process.env.SECRET,
-                { expiresIn: 120 } // 5min
+                { expiresIn: 3600 } // 5min
             );
 
             res.json({ auth: true, token });
