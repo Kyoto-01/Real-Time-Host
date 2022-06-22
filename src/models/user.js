@@ -1,33 +1,38 @@
-import path from 'path';
-import fs from 'fs';
 import bcrypt from 'bcrypt';
+import database from '../db/index.js';
 
-
-const DBPATH = path.join(path.resolve('src', 'seeders', 'data.json'));
-const DB = () => JSON.parse(fs.readFileSync(DBPATH));
 
 const saltRounds = 12;
 
 
-function read_by_email(email) {
-    const user = DB().users.find((user) => user.email === email);
+async function read_all() {
+    const conn = await database.connect();
 
-    return user;
+    const sql = `
+        SELECT
+            id, name, email
+        FROM
+            users
+    `;
+
+    return await conn.all(sql);
 }
 
 async function create(user) {
-    const id = String(new Date().getTime());
+    const conn = await database.connect();
+
+    const sql = `
+        INSERT INTO
+            users (name, email, password)
+        VALUES
+            (?, ?, ?)
+    `;
 
     const { name, email, password } = user;
 
-    const newUser = { ...user, id };
-
     const hash = await bcrypt.hash(password, saltRounds);
 
-    const db = DB();
-
-    db.users.push({ ...newUser, password: hash });
-    fs.writeFileSync(DBPATH, JSON.stringify(db));
+    const { lastID } = conn.run(sql, [name, email, hash]);
 
     return { id, name, email };
 }

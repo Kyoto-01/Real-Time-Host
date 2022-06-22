@@ -13,8 +13,9 @@ function get_token() {
     return localStorage.getItem("@Real-Time-Host:token");
 }
 
-function signin(token) {
-    localStorage.setItem("@Real-Time-Host:token", token);
+function signin(signinData) {
+    localStorage.setItem("@Real-Time-Host:token", signinData.token);
+    localStorage.setItem("@Real-Time-Host:username", signinData.username);
 
     window.location.href = "/";
 }
