@@ -75,12 +75,12 @@ router.post('/signin', async (req, res) => {
                 { expiresIn: 3600 } // 5min
             );
 
-            res.json({ auth: true, token });
+            res.json({ auth: true, token, username: user.name, email: user.email });
         } else {
-            res.json({ auth: false, token: 'pass' });
+            res.json({ auth: false, errors: 'pass' });
         }
     } else {
-        res.json({ auth: false, token: 'user' })
+        res.json({ auth: false, errors: 'user' })
     }
 });
 

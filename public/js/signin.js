@@ -19,12 +19,12 @@ function load_signin_submit() {
 		const password = signinForm.querySelector('#password').value;
 		const user = { email, password };
 
-		const { auth, token } = await api.create('/signin', user);
+		const signin = await api.create('/signin', user);
 
-		if (auth) {
-			Auth.signin(token);
+		if (signin.auth) {
+			Auth.signin(signin);
 		} else {
-			if (token === 'user') {
+			if (signin.errors === 'user') {
 				show_toast('Erro no login: Usuário inválido');
 			} else {
 				show_toast('Erro no login: Senha inválida');
