@@ -24,26 +24,30 @@
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container">
         <a id="site-name" class="navbar-brand" href="#">Real Time Host</a>
+
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
           aria-label="Toggle navigation" onclick="this.blur()">
           <i class="fa-solid fa-bars nav-icon"></i>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a id="add-host-btn" class="nav-link" href="#" style="color: white;">Adicionar host</a>
             </li>
+
             <li class="nav-item">
-              <a class="nav-link" href="/signout.html" style="color: white;">Sair</a>
+              <div id="user-link" class="dropdown">
+                <button class="btn dropdown-toggle" type="button" id="user-dropdown" data-bs-toggle="dropdown"
+                  aria-expanded="false" style="color: white;" onclick="this.blur()"></button>
+                <ul class="dropdown-menu" aria-labelledby="user-dropdown">
+                  <li><a id="signout-link" class="dropdown-item" href="#">Sair</a></li>
+                </ul>
+              </div>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="/signup.html" style="color: white;">Cadastrar</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/signin.html" style="color: white;">Entrar</a>
-            </li> -->
           </ul>
+          
           <form id="search-form" class="d-flex search">
             <input id="search-host" class="form-control me-2 search" type="text" placeholder="hostname ou IP"
               aria-label="search-host" autocomplete="off">
@@ -143,6 +147,25 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- signout confirm modal -->
+  <div class="modal fade" id="signout-confirm-modal" tabindex="-1" aria-labelledby="signout-confirm-label">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="signout-confirm-label">Saindo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Não</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Sim</button>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
