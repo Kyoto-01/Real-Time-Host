@@ -6,9 +6,9 @@ import path from 'path';
 import Router from './routes/index.js';
 
 
-const dirname = path.resolve();
 const app = express();
 const port = 3000;
+const dirname = path.resolve();
 
 
 app.use(express.static(path.join(dirname, 'public')));
