@@ -36,13 +36,13 @@ async function refresh_host_details(hostData) {
 }
 
 async function show_host_details(hostData, modalTitle, modalBody) {
-    const hostAll = await hosts.get_host_all(hostData);
+    let hostAll = await hosts.get_host_all(hostData);
 
     let detailsHTML = `
     <div id="details-host-list">
         ${get_host_details(hostAll)}
     </div>`;
-
+    
     modalTitle.innerHTML = `Detalhes de Monitoramento ( ${hostAll.general.hostname} - ${hostAll.general.ip} )`;
     modalBody.innerHTML = detailsHTML;
     hostCharts.plot_charts();
