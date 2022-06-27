@@ -15,9 +15,8 @@ function index(req, res) {
 
 function read_by_id(req, res) {
     const id = req.params.id;
-    let response = hostModel.read_by_id(id);
-    
-    response = hostManager.get_host(response);
+   
+    const response = hostManager.get_host_by_id(id);
 
     res.json(response);
 }

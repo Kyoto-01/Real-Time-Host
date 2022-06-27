@@ -22,15 +22,15 @@ async function create(req, res) {
 async function signin(req, res) {
     const { email, password } = req.body;
 
-    const response = { 
-        auth: null, 
-        token: null, 
-        username: null, 
-        email: null, 
-        errors: null 
+    const response = {
+        auth: null,
+        token: null,
+        username: null,
+        email: null,
+        errors: null
     };
 
-    const user = userModel.read_by_email(email);
+    const user = await userModel.read_by_email(email);
 
     if (user) {
         const match = await bcrypt.compare(password, user.password);
@@ -44,10 +44,8 @@ async function signin(req, res) {
 
             response.auth = true;
             response.token = token;
-            response.user = user.name;
+            response.username = user.name;
             response.email = user.email;
-
-            res.json(response);
         } else {
             response.auth = false;
             response.errors = 'password';
@@ -57,7 +55,7 @@ async function signin(req, res) {
         response.errors = 'user';
     }
 
-    res.status(401).json(response);
+    res.json(response);
 }
 
 

@@ -1,69 +1,77 @@
 import fetch from 'node-fetch';
-import { agentPort } from './manager_config.js';
 
 
 /*
     O servidor busca novas informações a cada x milisegundos (updateTime)
 */
 
+const agentPort = 5000;
 const updateTime = 1000;
 
-let HOSTS_GENERAL = [];
-let HOSTS_GENERAL_CACHE = [];
+let HOSTS = [];
+let HOSTS_CACHE = [];
 
 
-set_hosts_general_update_interval();
+start();
 
-function get_hosts_general(hostList) {
+
+function start() {
+    return setInterval(() => update_hosts(), updateTime);
+}
+
+function get_hosts(hostList) {
 
     /*
-        Busca as informações gerais mais atuais
+        Busca as informações mais atuais
     */
 
-    HOSTS_GENERAL_CACHE = hostList;
+    HOSTS_CACHE = hostList;
 
-    if (HOSTS_GENERAL.length == 0) {
-        HOSTS_GENERAL = hostList;
+    if (HOSTS.length == 0) {
+        HOSTS = hostList;
     }
 
-    return HOSTS_GENERAL;
+    return HOSTS;
 }
 
-function set_hosts_general_update_interval() {
-    return setInterval(() => update_hosts_general(), updateTime);
+function get_host_by_id(id) {
+    return HOSTS.find(host => host.general.id == id);
 }
 
-function update_hosts_general() {
+function update_hosts() {
 
     /*
         Acessa agente por agente, coletando suas informações gerais
     */
 
-    for (let i in HOSTS_GENERAL_CACHE) {
-        fetch_host_general(i);
+    for (let i in HOSTS_CACHE) {
+        fetch_host(i);
     }
 }
 
-function fetch_host_general(hostIndex) {
-    const host = HOSTS_GENERAL_CACHE[hostIndex];
-    const url = `http://${host.ip}:${agentPort}/general`;
+function fetch_host(index) {
+    const host = HOSTS_CACHE[index];
+    const url = `http://${host.general.ip}:${agentPort}/all`;
 
     try {
         fetch(url)
             .then(async (value) => {
                 value = await value.json();
-                value.id = host.id;
-                HOSTS_GENERAL[hostIndex] = value;
+                value.general.id = host.general.id;
+                HOSTS[index] = value;
             })
             .catch(() => {
-                host.online = false;
-                HOSTS_GENERAL[hostIndex] = host;
+                host.general.online = false;
+                HOSTS[index] = host;
             });
     } catch {
-        host.online = false;
-        HOSTS_GENERAL[hostIndex] = host;
+        host.general.online = false;
+        HOSTS[index] = host;
     }
 }
 
 
-export default { get_hosts_general };
+export default {
+    get_hosts,
+    get_host_by_id
+};

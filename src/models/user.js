@@ -22,7 +22,7 @@ async function read_by_email(email) {
 
     const sql = `
         SELECT
-            id, name, email
+            id, name, email, password
         FROM
             users
         WHERE

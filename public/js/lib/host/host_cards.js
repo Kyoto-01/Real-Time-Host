@@ -56,7 +56,7 @@ async function del_host_event(hostData) {
     const delHostConfirmButton = delHostModalElement.querySelector('.btn-danger');
     const delHostModal = new bootstrap.Modal(delHostModalElement);
 
-    delHostModalBody.innerHTML = `Deseja remover o host ${hostData.hostname} (${hostData.ip})?`;
+    delHostModalBody.innerHTML = `Deseja remover o host ${hostData.general.hostname} (${hostData.general.ip})?`;
 
     delHostConfirmButton.onclick = () => {
         hosts.del_host(hostData);
@@ -85,21 +85,21 @@ function create_host_card_group(hostList, parentSelector) {
 }
 
 function create_host_card(parent, hostData) {
-    const hostCardID = `host-${hostData.id}`;
+    const hostCardID = `host-${hostData.general.id}`;
     const hostCardHTML = `
     <div class="col mt-4">
         <div id="${hostCardID}" class="card">
             <div class="card-header">
                 <img src="imgs/pc.svg" alt="PC" class="card-img-top card-icon"> 
                 <span class="float-end">
-                    <i class="fa-solid fa-circle ${hostData.online ? 'fa-circle-on' : 'fa-circle-off'}"></i> ${hostData.online ? 'online' : 'offline'}
+                    <i class="fa-solid fa-circle ${hostData.general.online ? 'fa-circle-on' : 'fa-circle-off'}"></i> ${hostData.general.online ? 'online' : 'offline'}
                 </span>
             </div>
             <div class="card-body">
-                <h5 class="card-title">${hostData.hostname}</h5>
+                <h5 class="card-title">${hostData.general.hostname}</h5>
                 <ul class="list-group" style="list-style: none;">
-                    <li>${hostData.ip}</li>
-                    <li>${hostData.os}</li>
+                    <li>${hostData.general.ip}</li>
+                    <li>${hostData.general.os}</li>
                 </ul>               
             </div>
             <div class="card-footer d-flex flex-row justify-content-end">

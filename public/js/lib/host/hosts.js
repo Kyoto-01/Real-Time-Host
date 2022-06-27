@@ -12,7 +12,7 @@ const hostsResource = '/hosts';
 async function filter_hosts(filterString, hosts) {
     const filterHost = hosts.filter(value => {
         return (
-            value.hostname.toUpperCase().includes(filterString.toUpperCase()) || value.ip.includes(filterString)
+            value.general.hostname.toUpperCase().includes(filterString.toUpperCase()) || value.general.ip.includes(filterString)
         );
     });
     return filterHost;
@@ -35,7 +35,7 @@ async function add_host(form) {
 }
 
 async function del_host(hostData) {
-    return await api.destroy(`${hostsResource}/?id=${hostData.id}`, `${Auth.authType} ${Auth.get_token()}`);
+    return await api.destroy(`${hostsResource}/?id=${hostData.general.id}`, `${Auth.authType} ${Auth.get_token()}`);
 }
 
 async function get_hosts_cached() {
@@ -56,7 +56,7 @@ async function get_hosts() {
 
 async function get_host_all(host) {
     try {
-        return await api.read(`${hostsResource}/${host.id}`, `${Auth.authType} ${Auth.get_token()}`);
+        return await api.read(`${hostsResource}/${host.general.id}`, `${Auth.authType} ${Auth.get_token()}`);
     } catch (error) {
         Auth.signout();
     }
