@@ -37,11 +37,11 @@ function add_host_event() {
 
     document.getElementById('add-host-btn').onclick = () => addHostModal.show();
 
-    form.onsubmit = (event) => {
+    form.onsubmit = async (event) => {
 
         event.preventDefault();
 
-        hosts.add_host(form);
+        await hosts.add_host(form);
 
         form.reset();
         addHostModal.hide();

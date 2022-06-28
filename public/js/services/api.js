@@ -19,7 +19,10 @@ async function send_request(resource, config, authorization) {
                 throw new Error('Unauthorized');
             }
             return await res.json();
-        });
+        })
+        .catch (
+            (error) => console.log(error)
+        );
 }
 
 async function create(resource, data, authorization) {

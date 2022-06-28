@@ -19,13 +19,12 @@ async function filter_hosts(filterString, hosts) {
 }
 
 async function add_host(form) {
-    const id = String(new Date().getTime());
     const hostname = form.querySelector('#add-host-name').value;
     const ip = form.querySelector('#add-host-ip').value;
     const os = form.querySelector('#add-host-so').value;
-    const online = true;
+    const online = false;
 
-    const newHost = { id, hostname, ip, os, online };
+    const newHost = { hostname, ip, os, online };
 
     try {
         return await api.create(hostsResource, newHost, `${Auth.authType} ${Auth.get_token()}`);
