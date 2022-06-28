@@ -1,72 +1,62 @@
 {
   "hosts": [
     {
-      "id": "20220414001",
-      "hostname": "PC-Casa",
-      "ip": "127.0.0.1",
-      "os": "Linux Debian",
-      "online": false
-    },
-    {
-      "id": "20220414003",
-      "hostname": "PC03-SINFO02",
+      "hostname": "PC-KYOTO",
       "ip": "192.168.1.7",
       "os": "Windows 10",
       "online": false
     },
     {
-      "id": "20220414004",
-      "hostname": "PC02-SINFO03",
+      "hostname": "PC-OSAKA",
       "ip": "10.0.4.103",
       "os": "Linux Ubuntu",
       "online": false
     },
     {
-      "id": "20220414005",
-      "hostname": "PC03-SINFO04",
+      "hostname": "PC-OKINAWA",
       "ip": "1.2.3.4",
       "os": "Windows 10",
       "online": false
     },
     {
-      "id": "20220414006",
-      "hostname": "PC02-SINFO05",
+      "hostname": "PC-RIO",
       "ip": "10.0.4.117",
       "os": "Linux Ubuntu",
       "online": false
     },
     {
-      "id": "20220414007",
-      "hostname": "PC03-SINFO06",
+      "hostname": "PC-SAOPAULO",
       "ip": "10.0.4.6",
       "os": "Windows 10",
       "online": false
     },
     {
-      "id": "20220414008",
-      "hostname": "PC02-SINFO07",
+      "hostname": "PC-PARAIBA",
       "ip": "10.0.4.7",
       "os": "Linux Ubuntu",
       "online": false
     },
     {
-      "id": "20220414009",
-      "hostname": "PC03-SINFO08",
+      "hostname": "PC-BRASILIA",
       "ip": "10.0.4.8",
       "os": "Windows 10",
       "online": false
     },
     {
-      "id": "20220414002",
-      "hostname": "PC02-SINFO01",
-      "ip": "192.168.1.7",
+      "hostname": "PC-PEQUIM",
+      "ip": "192.168.1.80",
       "os": "Linux Ubuntu",
+      "online": false
+    },
+    {
+      "hostname": "PC-LOCAL",
+      "ip": "127.0.0.1",
+      "os": "os local",
       "online": false
     }
   ],
   "users": [
     {
-      "id": 1,
       "name": "admin",
       "email": "admin@email.com",
       "password": "$2a$12$O5ni7OIYCE1er7Lh37IL7ey94CriNSWJQbVWDJknLlSWtZ4035/22"
@@ -74,14 +64,12 @@
     {
       "name": "kyoto",
       "email": "kyoto@email.com",
-      "password": "$2b$12$Z6hHzphZwK6aDGCvbdw/H.how3vI3dMixcF0OhzUBObLRAn9Q8DK6",
-      "id": "1655693190537"
+      "password": "$2b$12$Z6hHzphZwK6aDGCvbdw/H.how3vI3dMixcF0OhzUBObLRAn9Q8DK6"
     },
     {
       "name": "osaka",
       "email": "osaka@email.com",
-      "password": "$2b$12$6Ae.frKy4syzCBg/gSGXVOr.suZkiBaEOjqgolGtu/dDiWGcos./.",
-      "id": "1655693331240"
+      "password": "$2b$12$6Ae.frKy4syzCBg/gSGXVOr.suZkiBaEOjqgolGtu/dDiWGcos./."
     }
   ]
 }
