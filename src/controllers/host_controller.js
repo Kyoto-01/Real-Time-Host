@@ -6,15 +6,18 @@ async function index(req, res) {
 
     // pega apenas informações gerais
 
-    const cached = Boolean(req.query.cached);
-    let response = await hostModel.read_all();
+    //const cached = Boolean(req.query.cached);
+    let response = [];
 
-    response = response.map((item) => (item.general ? item : { general: item }));
+    if (hostManager.is_void()) {
+        response = await hostModel.read_all();
+        response = response.map((item) => (item.general ? item : { general: item }));
 
-    if (!cached) {
-        response = hostManager.get_hosts(response);
-        response = response.map((item) => ({ general: item.general }));
+        hostManager.set_hosts(response);
     }
+
+    response = hostManager.get_hosts();
+    response = response.map((item) => ({ general: item.general }));
 
     res.json(response);
 }
@@ -29,7 +32,10 @@ function read_by_id(req, res) {
 
 async function create(req, res) {
     const data = req.body;
+
     const response = await hostModel.create(data);
+
+    hostManager.reset_hosts();
 
     res.status(201).json(response);
 }
@@ -37,6 +43,7 @@ async function create(req, res) {
 async function update(req, res) {
     const id = req.query.id;
     const data = req.body;
+
     const response = await hostModel.update(id, data);
 
     res.json(response);
@@ -47,7 +54,9 @@ async function destroy(req, res) {
 
     await hostModel.remove(id);
 
-    res.status(204);
+    hostManager.reset_hosts();
+
+    res.status(204).send('');
 }
 
 

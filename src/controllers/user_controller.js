@@ -5,7 +5,7 @@ import userModel from '../models/user.js';
 
 
 const saltRounds = 12;
-const loginTime = 3600; // em segundos
+const loginTime = 3600; //em segundos
 
 
 async function create(req, res) {

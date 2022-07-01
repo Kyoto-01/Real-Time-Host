@@ -21,8 +21,6 @@ function signin(signinData) {
 }
 
 function signout() {
-    fetch('/signout');
-
     localStorage.removeItem("@Real-Time-Host:token");
 
     window.location.href = "/signin.html";

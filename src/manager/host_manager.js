@@ -9,7 +9,6 @@ const agentPort = 5000;
 const updateTime = 1000;
 
 let HOSTS = [];
-let HOSTS_CACHE = [];
 
 
 start();
@@ -19,18 +18,15 @@ function start() {
     return setInterval(() => update_hosts(), updateTime);
 }
 
-function get_hosts(hostList) {
+function is_void() {
+    return HOSTS.length == 0
+}
 
-    /*
-        Busca as informações mais atuais
-    */
+function set_hosts(hostList) {
+    HOSTS = hostList;
+}
 
-    HOSTS_CACHE = hostList;
-
-    if (HOSTS.length == 0) {
-        HOSTS = hostList;
-    }
-
+function get_hosts() {
     return HOSTS;
 }
 
@@ -38,19 +34,18 @@ function get_host_by_id(id) {
     return HOSTS.find(host => host.general.id == id);
 }
 
+function reset_hosts() {
+    HOSTS.splice(0, HOSTS.length);
+}
+
 function update_hosts() {
-
-    /*
-        Acessa agente por agente, coletando suas informações gerais
-    */
-
-    for (let i in HOSTS_CACHE) {
+    for (let i in HOSTS) {
         fetch_host(i);
     }
 }
 
 function fetch_host(index) {
-    const host = HOSTS_CACHE[index];
+    const host = HOSTS[index];
     const url = `http://${host.general.ip}:${agentPort}/all`;
 
     try {
@@ -58,20 +53,24 @@ function fetch_host(index) {
             .then(async (value) => {
                 value = await value.json();
                 value.general.id = host.general.id;
-                HOSTS[index] = value;
+                if (HOSTS[index].general.id === value.general.id) {
+                    HOSTS[index] = value;
+                }
+                return;
             })
             .catch(() => {
                 host.general.online = false;
-                HOSTS[index] = host;
             });
     } catch {
         host.general.online = false;
-        HOSTS[index] = host;
     }
 }
 
 
 export default {
+    set_hosts,
     get_hosts,
-    get_host_by_id
+    is_void,
+    get_host_by_id,
+    reset_hosts,
 };
