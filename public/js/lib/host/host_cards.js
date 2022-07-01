@@ -6,6 +6,7 @@ import hostDetails from "./host_details.js";
     Funções e eventos relacionados á exibição, adição e exclsão de cards de hosts
 */
 
+let HOST_UPDATE_INTERVAL;
 let HOST_LIST_PARENT = '';
 let HOST_FILTER_STRING = '';
 let LOADED_HOSTS = [];
@@ -20,10 +21,20 @@ function load(hostListParent){
     load_hosts(); // para carregar rápido, com informações em "cache"
     load_hosts(false); // para carregar informações atualizadas pela rede
 
-    setInterval(() => load_hosts(false), 1000);
+    HOST_UPDATE_INTERVAL = start_update();
+}
+
+function start_update() {
+    return setInterval(() => load_hosts(false), 1000);
+}
+
+function stop_update() {
+    clearInterval(HOST_UPDATE_INTERVAL);
 }
 
 function search_host_event(){
+    document.getElementById("search-form").onkeydown = (event) => event.key != 'Enter';
+    
     document.getElementById("search-btn").onclick = async function() {
         HOST_FILTER_STRING = document.getElementById("search-host").value;
         LOADED_HOSTS = await hosts.filter_hosts(HOST_FILTER_STRING, LOADED_HOSTS);
@@ -46,7 +57,7 @@ function add_host_event() {
         form.reset();
         addHostModal.hide();
 
-        load_hosts(HOST_LIST_PARENT);
+        load_hosts();
     };
 }
 
@@ -58,9 +69,9 @@ async function del_host_event(hostData) {
 
     delHostModalBody.innerHTML = `Deseja remover o host ${hostData.general.hostname} (${hostData.general.ip})?`;
 
-    delHostConfirmButton.onclick = () => {
-        hosts.del_host(hostData);
-        load_hosts(HOST_LIST_PARENT);
+    delHostConfirmButton.onclick = async () => {
+        await hosts.del_host(hostData);
+        load_hosts();
     };
 
     delHostModal.show();

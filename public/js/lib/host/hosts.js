@@ -29,18 +29,25 @@ async function add_host(form) {
     try {
         return await api.create(hostsResource, newHost, `${Auth.authType} ${Auth.get_token()}`);
     } catch (error) {
+        console.log(error)
         Auth.signout();
     }
 }
 
 async function del_host(hostData) {
-    return await api.destroy(`${hostsResource}/?id=${hostData.general.id}`, `${Auth.authType} ${Auth.get_token()}`);
+    try {
+        await api.destroy(`${hostsResource}/?id=${hostData.general.id}`, `${Auth.authType} ${Auth.get_token()}`);
+    } catch (error) {
+        console.log(error)
+        Auth.signout();
+    }
 }
 
 async function get_hosts_cached() {
     try {
         return await api.read(`${hostsResource}/?cached=true`, `${Auth.authType} ${Auth.get_token()}`);
     } catch (error) {
+        console.log(error)
         Auth.signout();
     }
 }
@@ -49,6 +56,7 @@ async function get_hosts() {
     try {
         return await api.read(hostsResource, `${Auth.authType} ${Auth.get_token()}`);
     } catch (error) {
+        console.log(error)
         Auth.signout();
     }
 }
@@ -57,6 +65,7 @@ async function get_host_all(host) {
     try {
         return await api.read(`${hostsResource}/${host.general.id}`, `${Auth.authType} ${Auth.get_token()}`);
     } catch (error) {
+        console.log(error)
         Auth.signout();
     }
 }
