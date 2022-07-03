@@ -48,7 +48,7 @@ async function update(req, res) {
 
     res.json(response);
 }
-
+ 
 async function destroy(req, res) {
     const id = req.query.id;
 
@@ -56,7 +56,7 @@ async function destroy(req, res) {
 
     hostManager.reset_hosts();
 
-    res.status(204).send('');
+    res.status(204);
 }
 
 

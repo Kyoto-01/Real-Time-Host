@@ -14,12 +14,11 @@ async function send_request(resource, config, authorization) {
     }
 
     return await fetch(url, config)
-        .then((res) => {
+        .then(async (res) => {
             if (res.status === 401) {
                 throw new Error('Unauthorized');
             }
-
-            return res;
+            return await res.json();
         })
         .catch(
             (error) => {
@@ -38,7 +37,7 @@ async function create(resource, data, authorization) {
         body: JSON.stringify(data),
     };
 
-    return await (await send_request(resource, config, authorization)).json();
+    return await send_request(resource, config, authorization);
 }
 
 async function read(resource, authorization) {
@@ -46,7 +45,7 @@ async function read(resource, authorization) {
         method: 'get',
     }
 
-    return await (await send_request(resource, config, authorization)).json();
+    return await send_request(resource, config, authorization);
 }
 
 async function destroy(resource, authorization) {
@@ -54,7 +53,7 @@ async function destroy(resource, authorization) {
         method: 'delete',
     };
 
-    await send_request(resource, config, authorization);
+    return await send_request(resource, config, authorization);
 }
 
 export default { create, read, destroy }
