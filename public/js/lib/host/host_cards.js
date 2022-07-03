@@ -6,7 +6,6 @@ import hostDetails from "./host_details.js";
     Funções e eventos relacionados á exibição, adição e exclsão de cards de hosts
 */
 
-let HOST_UPDATE_INTERVAL;
 let HOST_LIST_PARENT = '';
 let HOST_FILTER_STRING = '';
 let LOADED_HOSTS = [];
@@ -18,24 +17,21 @@ function load(hostListParent){
     add_host_event();
     search_host_event();
 
-    load_hosts(); // para carregar rápido, com informações em "cache"
-    load_hosts(false); // para carregar informações atualizadas pela rede
+    load_hosts();
 
-    HOST_UPDATE_INTERVAL = start_update();
+    start_update();
 }
 
 function start_update() {
     return setInterval(() => load_hosts(false), 1000);
 }
 
-function stop_update() {
-    clearInterval(HOST_UPDATE_INTERVAL);
-}
-
 function search_host_event(){
     document.getElementById("search-form").onkeydown = (event) => event.key != 'Enter';
     
     document.getElementById("search-btn").onclick = async function() {
+        this.blur();
+        
         HOST_FILTER_STRING = document.getElementById("search-host").value;
         LOADED_HOSTS = await hosts.filter_hosts(HOST_FILTER_STRING, LOADED_HOSTS);
         create_host_card_group(LOADED_HOSTS, HOST_LIST_PARENT);
@@ -77,8 +73,8 @@ async function del_host_event(hostData) {
     delHostModal.show();
 }
 
-async function load_hosts(cached = true) {
-    LOADED_HOSTS = cached ? await hosts.get_hosts_cached() : await hosts.get_hosts();
+async function load_hosts() {
+    LOADED_HOSTS = await hosts.get_hosts();
     LOADED_HOSTS = await hosts.filter_hosts(HOST_FILTER_STRING, LOADED_HOSTS);
     create_host_card_group(LOADED_HOSTS, HOST_LIST_PARENT);
 }

@@ -44,9 +44,9 @@ async function create(user) {
 
     const { name, email, password } = user;
     
-    const { lastID } = conn.run(sql, [name, email, password]);
+    const response = conn.run(sql, [name, email, password]);
 
-    return await read_by_id(lastID);
+    return await response;
 }
 
 

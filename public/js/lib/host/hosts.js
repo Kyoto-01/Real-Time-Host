@@ -27,7 +27,7 @@ async function add_host(form) {
     const newHost = { hostname, ip, os, online };
 
     try {
-        return await api.create(hostsResource, newHost, `${Auth.authType} ${Auth.get_token()}`);
+        await api.create(hostsResource, newHost, `${Auth.authType} ${Auth.get_token()}`);
     } catch (error) {
         console.log(error)
         Auth.signout();
@@ -37,15 +37,6 @@ async function add_host(form) {
 async function del_host(hostData) {
     try {
         await api.destroy(`${hostsResource}/?id=${hostData.general.id}`, `${Auth.authType} ${Auth.get_token()}`);
-    } catch (error) {
-        console.log(error)
-        Auth.signout();
-    }
-}
-
-async function get_hosts_cached() {
-    try {
-        return await api.read(`${hostsResource}/?cached=true`, `${Auth.authType} ${Auth.get_token()}`);
     } catch (error) {
         console.log(error)
         Auth.signout();
@@ -74,7 +65,6 @@ async function get_host_all(host) {
 export default {
     add_host,
     del_host,
-    get_hosts_cached,
     get_hosts,
     get_host_all,
     filter_hosts

@@ -14,7 +14,13 @@ async function create(req, res) {
 
     data.password = hash;
 
-    const response = await userModel.create(data);
+    let response = {};
+
+    try {
+        response = await userModel.create(data);
+    } catch {
+        response.errors = true;
+    }
 
     res.status(201).json(response);
 }

@@ -44,9 +44,9 @@ async function create(host) {
 
     const { hostname, ip, os, online } = host;
 
-    const { lastID } = await conn.run(sql, [hostname, ip, os, online]);
+    const response = await conn.run(sql, [hostname, ip, os, online]);
 
-    return await read_by_id(lastID);
+    return response;
 }
 
 
@@ -64,9 +64,9 @@ async function update(host) {
         id = ?
     `;
   
-    await conn.run(sql, [hostname, ip, os, online, id]);
+    const response = await conn.run(sql, [hostname, ip, os, online, id]);
   
-    return await read_by_id(id);
+    return response;
 }
 
 async function remove(id) {
@@ -79,12 +79,15 @@ async function remove(id) {
         id = ?
     `;
   
-    await conn.run(sql, [id]);
+    const response = await conn.run(sql, [id]);
+
+    return response;
 }
 
 
 export default {
     read_all,
+    read_by_id,
     create,
     update,
     remove
