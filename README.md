@@ -22,17 +22,21 @@ O projeto Real Time Hosts visa implementar um sistema de monitoramento em tempo 
 
 ## Screenshots
 
-<a href="https://www.imagebam.com/view/ME9X1ZU" target="_blank"><img src="https://thumbs4.imagebam.com/b2/ee/87/ME9X1ZU_t.jpg" alt="principal.jpg"/></a>
-<a href="https://www.imagebam.com/view/ME9X1ZL" target="_blank"><img src="https://thumbs4.imagebam.com/1b/1b/09/ME9X1ZL_t.jpg" alt="Modal detalhes 1.jpg"/></a>
-<a href="https://www.imagebam.com/view/ME9X1ZN" target="_blank"><img src="https://thumbs4.imagebam.com/f8/5c/cd/ME9X1ZN_t.jpg" alt="Modal detalhes 2.jpg"/></a>
-<a href="https://www.imagebam.com/view/ME9X1ZO" target="_blank"><img src="https://thumbs4.imagebam.com/31/51/b7/ME9X1ZO_t.jpg" alt="Modal detalhes 3.jpg"/></a>
-<a href="https://www.imagebam.com/view/ME9X1ZP" target="_blank"><img src="https://thumbs4.imagebam.com/97/42/af/ME9X1ZP_t.jpg" alt="Modal detalhes 4.jpg"/></a>
-<a href="https://www.imagebam.com/view/ME9X1ZQ" target="_blank"><img src="https://thumbs4.imagebam.com/8c/b5/f7/ME9X1ZQ_t.jpg" alt="Modal exclusão de host.jpg"/></a>
-<a href="https://www.imagebam.com/view/ME9X1ZR" target="_blank"><img src="https://thumbs4.imagebam.com/01/4e/6c/ME9X1ZR_t.jpg" alt="Pesquisa IP.jpg"/></a>
-<a href="https://www.imagebam.com/view/ME9X1ZS" target="_blank"><img src="https://thumbs4.imagebam.com/d5/50/62/ME9X1ZS_t.jpg" alt="Pesquisa Nome completo.jpg"/></a>
-<img src="https://thumbs4.imagebam.com/64/98/f4/ME9X1ZT_t.jpg" alt="Pesquisa Resumida.jpg"/>
+
+<a href="https://www.imagebam.com/view/MEBJUSH" target="_blank"><img src="https://thumbs4.imagebam.com/0a/50/a0/MEBJUSH_t.png" alt="Tela de login"/></a>
+<a href="https://www.imagebam.com/view/MEBJUSI" target="_blank"><img src="https://thumbs4.imagebam.com/fb/8e/97/MEBJUSI_t.png" alt="Tela de registro"/></a>
+<a href="https://www.imagebam.com/view/MEBJUSJ" target="_blank"><img src="https://thumbs4.imagebam.com/ac/e7/93/MEBJUSJ_t.png" alt="Tela principal"/></a>
+<a href="https://www.imagebam.com/view/MEBJUSK" target="_blank"><img src="https://thumbs4.imagebam.com/6b/c9/97/MEBJUSK_t.png" alt="Detalhes gerais"/></a>
+<a href="https://www.imagebam.com/view/MEBJUSL" target="_blank"><img src="https://thumbs4.imagebam.com/ac/74/a7/MEBJUSL_t.png" alt="Detalhes memória"/></a>
+<a href="https://www.imagebam.com/view/MEBJUSM" target="_blank"><img src="https://thumbs4.imagebam.com/28/00/e9/MEBJUSM_t.png" alt="Detalhes CPU"/></a>
+<a href="https://www.imagebam.com/view/MEBJUSN" target="_blank"><img src="https://thumbs4.imagebam.com/df/8c/fb/MEBJUSN_t.png" alt="Detalhes rede e armazenamento"/></a>
+<a href="https://www.imagebam.com/view/MEBJUSO" target="_blank"><img src="https://thumbs4.imagebam.com/06/31/b1/MEBJUSO_t.png" alt="Detalhes armazanamento"/></a>
+<a href="https://www.imagebam.com/view/MEBJUSP" target="_blank"><img src="https://thumbs4.imagebam.com/f7/7f/ec/MEBJUSP_t.png" alt="Cadastrar Host no banco de dados"/></a>
+<a href="https://www.imagebam.com/view/MEBJUSQ" target="_blank"><img src="https://thumbs4.imagebam.com/e3/dc/c4/MEBJUSQ_t.png" alt="Remover Host cadastrado"/></a>
+<a href="https://www.imagebam.com/view/MEBJUSR" target="_blank"><img src="https://thumbs4.imagebam.com/91/c6/9d/MEBJUSR_t.png" alt="Pesquisa de Hosts"/></a>
 
 ## Contatos
 
+* <a href="mailto:cinaglia.silva@academico.ifpb.edu.br">Cinaglia Adagles da Silva</a>
 * <a href="mailto:jonatas.mendes@academico.ifpb.edu.br">Jônatas Mendes da Cruz</a>
 * <a href="mailto:bezerra.carvalho@academico.ifpb.edu.br">José Raimundo Bezerra de Carvalho</a>
