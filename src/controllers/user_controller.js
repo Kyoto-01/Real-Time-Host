@@ -1,12 +1,10 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import userModel from '../models/user.js';
-
+import userModel from '../models/user_model.js';
 
 const saltRounds = 12;
-const loginTime = 3600; //em segundos
-
+const loginTime = "1h";
 
 async function create(req, res) {
     const data = req.body;
@@ -14,29 +12,36 @@ async function create(req, res) {
 
     data.password = hash;
 
+    let status = 201;
     let response = {};
 
     try {
         response = await userModel.create(data);
     } catch {
-        response.errors = true;
+        status = 500;
     }
 
-    res.status(201).json(response);
+    res.status(status).json(response);
 }
 
 async function signin(req, res) {
     const { email, password } = req.body;
 
-    const response = {
-        auth: null,
-        token: null,
-        username: null,
-        email: null,
-        errors: null
-    };
+    let status = 200;
+    let response = {};
 
-    const user = await userModel.read_by_email(email);
+    try {
+        const user = await userModel.read_by_email(email);
+        response = await create_user_session(user, password);
+    } catch {
+        status = 500;
+    }
+
+    res.status(status).json(response);
+}
+
+async function create_user_session(user, password) {
+    let response;
 
     if (user) {
         const match = await bcrypt.compare(password, user.password);
@@ -47,23 +52,33 @@ async function signin(req, res) {
                 process.env.SECRET,
                 { expiresIn: loginTime }
             );
-
-            response.auth = true;
-            response.token = token;
-            response.username = user.name;
-            response.email = user.email;
+            
+            response = create_signin_response({user, token});
         } else {
-            response.auth = false;
-            response.errors = 'password';
+            response = create_signin_response({errors: ["login-password"]});
         }
     } else {
-        response.auth = false;
-        response.errors = 'user';
+        response = create_signin_response({errors: ["login-user"]});
     }
 
-    res.json(response);
+    return response;
 }
 
+function create_signin_response({user, token, errors}) {
+    let response;
+
+    if (errors) {
+        response = { errors: errors }
+    } else {
+        response = {
+            token: token,
+            username: user.name,
+            email: user.email,
+        }
+    }
+
+    return response;
+}
 
 export default {
     create,

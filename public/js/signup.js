@@ -1,16 +1,9 @@
 import api from './services/api.js';
-
+import error from './services/info.js';
 
 const signupForm = document.getElementById('signup-form');
 
-
-function show_toast(message) {
-	document.querySelector(".toast-header strong").innerText = message;
-	const toast = new bootstrap.Toast(document.querySelector("#liveToast"));
-	toast.show();
-}
-
-function load_signup_submit() {
+function submit_signup() {
     signupForm.onsubmit = async (event) => {
         event.preventDefault();
 
@@ -20,15 +13,20 @@ function load_signup_submit() {
 
         const user = { name, email, password };
 
-        const response = await api.create('/users', user);
-
-        if (response.errors) {
-            show_toast('Erro no cadastro: Email já está cadastrado!');
-            return;
+        let response;
+        
+        try {
+            response = await api.create('/users', user);
+        } catch {
+            response = {errors: ["login-generic"]};
         }
 
-        window.location.href = '/signin.html';
+        if ("errors" in response) {
+            error.show_errors(response.errors);
+        } else {
+            window.location.href = '/signin.html';
+        }
     }
 }
 
-load_signup_submit();
+submit_signup();

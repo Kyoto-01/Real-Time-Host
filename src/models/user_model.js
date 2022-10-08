@@ -1,6 +1,4 @@
-import bcrypt from 'bcrypt';
 import database from '../db/index.js';
-
 
 async function read_by_id(id) {
     const conn = await database.connect();
@@ -42,13 +40,8 @@ async function create(user) {
             (?, ?, ?)
     `;
 
-    const { name, email, password } = user;
-    
-    const response = conn.run(sql, [name, email, password]);
-
-    return await response;
+    return await conn.run(sql, [user.name, user.email, user.password]);
 }
-
 
 export default {
     read_by_id,

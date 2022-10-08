@@ -15,5 +15,4 @@ function is_authenticated(req, res, next) {
     }
 }
 
-
 export default { is_authenticated };

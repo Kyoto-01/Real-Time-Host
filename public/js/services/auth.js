@@ -1,6 +1,5 @@
 const authType = 'Bearer';
 
-
 function is_authenticated() {
     if (!get_token()) {
         window.location.href = "/signin.html";
@@ -25,6 +24,5 @@ function signout() {
 
     window.location.href = "/signin.html";
 }
-
 
 export default { authType, is_authenticated, get_token, signin, signout };

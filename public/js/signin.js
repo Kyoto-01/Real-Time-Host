@@ -1,36 +1,32 @@
-import Auth from './services/auth.js';
 import api from './services/api.js';
-
+import auth from './services/auth.js';
+import error from './services/info.js';
 
 const signinForm = document.getElementById('signin-form');
 
-
-function show_toast(message) {
-	document.querySelector(".toast-header strong").innerText = message;
-	const toast = new bootstrap.Toast(document.querySelector("#liveToast"));
-	toast.show();
-}
-
-function load_signin_submit() {
+function submit_signin() {
 	signinForm.onsubmit = async (event) => {
 		event.preventDefault();
 
-		const email = signinForm.querySelector('#email').value;
-		const password = signinForm.querySelector('#password').value;
+		const email = signinForm.querySelector("#email").value;
+		const password = signinForm.querySelector("#password").value;
+
 		const user = { email, password };
 
-		const signin = await api.create('/signin', user);
+		let response;
 
-		if (signin.auth) {
-			Auth.signin(signin);
+		try {
+			response = await api.create("/signin", user);
+		} catch {
+			response = { errors: ["login-generic"] };
+		}
+
+		if ("errors" in response) {
+			error.show_errors(response.errors);
 		} else {
-			if (signin.errors === 'user') {
-				show_toast('Erro no login: Usuário inválido');
-			} else {
-				show_toast('Erro no login: Senha inválida');
-			}
+			auth.signin(response);
 		}
 	}
 }
 
-load_signin_submit();
+submit_signin();

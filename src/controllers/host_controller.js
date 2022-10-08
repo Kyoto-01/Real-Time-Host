@@ -1,6 +1,5 @@
-import hostModel from '../models/host.js';
+import hostModel from '../models/host_model.js';
 import hostManager from '../manager/host_manager.js';
-
 
 async function index(req, res) {
 
@@ -58,7 +57,6 @@ async function destroy(req, res) {
 
     res.status(204);
 }
-
 
 export default {
     index,

@@ -1,12 +1,11 @@
 import hostCards from './lib/host/host_cards.js';
 import auth from './services/auth.js';
 
-
-function load_user() {
+function create_session() {
+    // Current username label
     document.querySelector('#user-link button').innerText = localStorage.getItem('@Real-Time-Host:username');
-}
 
-function load_user_signout() {
+    // signout actions
     document.getElementById('signout-link').onclick = () => {
         const signoutModalElement = document.getElementById('signout-confirm-modal');
         const signoutModalBody = signoutModalElement.querySelector('.modal-body');
@@ -24,8 +23,7 @@ function load_user_signout() {
 }
 
 if (auth.is_authenticated()) {
-    load_user();
-    load_user_signout();
+    create_session();
     hostCards.load('#card-list .container');
 }
 

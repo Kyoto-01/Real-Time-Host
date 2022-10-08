@@ -1,12 +1,9 @@
 /*
-    Funções para manipulação de dados servidos pelo servidor
+    Functions to access data in the server
 */
 
-
+/* generic request function */
 async function send_request(resource, config, authorization) {
-
-    // generic request function
-
     const url = `${resource}`;
 
     if (authorization) {
@@ -16,7 +13,9 @@ async function send_request(resource, config, authorization) {
     return await fetch(url, config)
         .then(async (res) => {
             if (res.status === 401) {
-                throw new Error('Unauthorized');
+                throw new Error("Unauthorized");
+            } else if (res.status === 500) {
+                throw new Error("Server Error");
             }
             return await res.json();
         })
