@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-import userModel from '../models/user.js';
-import hostModel from '../models/host.js';
+import userModel from '../models/user_model.js';
+import hostModel from '../models/host_model.js';
 
 const dirname = path.resolve();
 
