@@ -1,7 +1,6 @@
 import api from '../../services/api.js';
 import Auth from '../../services/auth.js';
 
-
 /*
     Funções p/ manipulação de objetos host
 */
@@ -60,7 +59,6 @@ async function get_host_all(host) {
         Auth.signout();
     }
 }
-
 
 export default {
     add_host,

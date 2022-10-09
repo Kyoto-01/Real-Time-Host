@@ -24,6 +24,6 @@ function create_session() {
 
 if (auth.is_authenticated()) {
     create_session();
-    hostCards.load('#card-list .container');
+    await hostCards.load('#card-list .container');
 }
 
