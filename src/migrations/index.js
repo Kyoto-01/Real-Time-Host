@@ -12,13 +12,11 @@ async function up() {
             password TEXT NOT NULL
         )
     `);
+
     await conn.run(`
-        CREATE TABLE IF NOT EXISTS hosts (
+        CREATE TABLE IF NOT EXISTS agents (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            hostname TEXT NOT NULL,
-            ip TEXT NOT NULL,
-            os TEXT NOT NULL,
-            online BOOL NOT NULL
+            addr TEXT NOT NULL,
         )
     `);
 }
@@ -27,7 +25,7 @@ async function down() {
     const conn = database.connect();
 
     await conn.run(`DROP TABLE users`); 
-    await conn.run(`DROP TABLE hosts`); 
+    await conn.run(`DROP TABLE agents`); 
 }
 
 

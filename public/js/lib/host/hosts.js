@@ -44,7 +44,9 @@ async function del_host(hostData) {
 
 async function get_hosts() {
     try {
-        return await api.read(hostsResource, `${Auth.authType} ${Auth.get_token()}`);
+        const a = await api.read(hostsResource, `${Auth.authType} ${Auth.get_token()}`);
+        console.log(a);
+        return a;
     } catch (error) {
         console.log(error)
         Auth.signout();

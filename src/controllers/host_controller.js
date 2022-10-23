@@ -1,22 +1,18 @@
 import hostModel from '../models/host_model.js';
-import hostManager from '../manager/host_manager.js';
+import { Manager } from '../manager/manager.js';
+
+const agentManager = Manager(5000, 1000, 5000, null);
 
 async function index(req, res) {
+    if (!agentManager.has_agents())
+        agentManager.agentList = await hostModel.read_all();
 
-    // pega apenas informações gerais
-
-    //const cached = Boolean(req.query.cached);
-    let response = [];
-
-    if (hostManager.is_void()) {
-        response = await hostModel.read_all();
-        response = response.map((item) => (item.general ? item : { general: item }));
-
-        hostManager.set_hosts(response);
-    }
-
-    response = hostManager.get_hosts();
-    response = response.map((item) => ({ general: item.general }));
+    let response = agentManager.agentList.map((item) => ({ 
+        "id": item.id,
+        "addr": item.addr,
+        "online": item.online,
+        "system": item.system, 
+    }));
 
     res.json(response);
 }
