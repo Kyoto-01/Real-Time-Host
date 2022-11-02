@@ -9,10 +9,11 @@ const hostsResource = '/hosts';
 
 
 async function filter_hosts(filterString, hosts) {
-    const filterHost = hosts.filter(value => {
-        return (
-            value.general.hostname.toUpperCase().includes(filterString.toUpperCase()) || value.general.ip.includes(filterString)
-        );
+    const filterHost = hosts.filter((value) => {
+            if (value.system.hostname) {
+                return value.system.hostname.toUpperCase().includes(
+                    filterString.toUpperCase()) || value.general.ip.includes(filterString);
+            };
     });
     return filterHost;
 }
@@ -44,9 +45,7 @@ async function del_host(hostData) {
 
 async function get_hosts() {
     try {
-        const a = await api.read(hostsResource, `${Auth.authType} ${Auth.get_token()}`);
-        console.log(a);
-        return a;
+        return await api.read(hostsResource, `${Auth.authType} ${Auth.get_token()}`);
     } catch (error) {
         console.log(error)
         Auth.signout();

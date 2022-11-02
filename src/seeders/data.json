@@ -1,58 +1,31 @@
 {
-  "hosts": [
+  "agents": [
     {
-      "hostname": "PC-KYOTO",
-      "ip": "192.168.1.7",
-      "os": "Windows 10",
-      "online": false
+      "addr": "192.168.1.7"
     },
     {
-      "hostname": "PC-OSAKA",
-      "ip": "10.0.4.103",
-      "os": "Linux Ubuntu",
-      "online": false
+      "addr": "10.0.4.103"
     },
     {
-      "hostname": "PC-OKINAWA",
-      "ip": "1.2.3.4",
-      "os": "Windows 10",
-      "online": false
+      "addr": "1.2.3.4"
     },
     {
-      "hostname": "PC-RIO",
-      "ip": "10.0.4.117",
-      "os": "Linux Ubuntu",
-      "online": false
+      "addr": "10.0.4.117"
     },
     {
-      "hostname": "PC-SAOPAULO",
-      "ip": "10.0.4.6",
-      "os": "Windows 10",
-      "online": false
+      "addr": "10.0.4.6"
     },
     {
-      "hostname": "PC-PARAIBA",
-      "ip": "10.0.4.7",
-      "os": "Linux Ubuntu",
-      "online": false
+      "addr": "10.0.4.7"
     },
     {
-      "hostname": "PC-BRASILIA",
-      "ip": "10.0.4.8",
-      "os": "Windows 10",
-      "online": false
+      "addr": "10.0.4.8"
     },
     {
-      "hostname": "PC-PEQUIM",
-      "ip": "192.168.1.80",
-      "os": "Linux Ubuntu",
-      "online": false
+      "addr": "192.168.1.80"
     },
     {
-      "hostname": "PC-LOCAL",
-      "ip": "127.0.0.1",
-      "os": "os local",
-      "online": false
+      "addr": "127.0.0.1"
     }
   ],
   "users": [

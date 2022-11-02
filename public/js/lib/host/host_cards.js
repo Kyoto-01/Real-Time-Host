@@ -14,8 +14,7 @@ async function load(parent) {
 
     add_host_event();
     search_host_event();
-    await load_hosts();
-    create_host_card_group();
+    await create_host_card_group();
     start_update();
 }
 
@@ -36,8 +35,7 @@ function add_host_event() {
 
         form.reset();
         addHostModal.hide();
-        await load_hosts()
-        create_host_card_group();
+        await create_host_card_group();
     };
 }
 
@@ -48,8 +46,7 @@ function search_host_event() {
         this.blur();
 
         hostFilterString = document.getElementById("search-host").value;
-        loadedHosts = await hosts.filter_hosts(hostFilterString, loadedHosts);
-        create_host_card_group();
+        await create_host_card_group();
     };
 }
 
@@ -64,7 +61,7 @@ function del_host_event(hostData) {
     delHostConfirmButton.onclick = async () => {
         await hosts.del_host(hostData);
         await load_hosts()
-        create_host_card_group();
+        await create_host_card_group();
     };
 
     delHostModal.show();
@@ -75,12 +72,15 @@ async function load_hosts() {
     loadedHosts = await hosts.filter_hosts(hostFilterString, loadedHosts);
 }
 
-function create_host_card_group() {
+async function create_host_card_group() {
     const hostGroupHTML = '<div id="host-group" class="row row-cols-1 row-cols-md-2 row-cols-xl-4"></div>';
 
     hostListParent.innerHTML = hostGroupHTML;
 
     const hostGroup = hostListParent.querySelector('#host-group');
+
+    await load_hosts();
+    loadedHosts.reverse();
 
     for (let host of loadedHosts) {
         create_host_card(hostGroup, host);
@@ -88,21 +88,21 @@ function create_host_card_group() {
 }
 
 function create_host_card(parent, hostData) {
-    const hostCardID = `host-${hostData.general.id}`;
+    const hostCardID = `host-${hostData.id}`;
     const hostCardHTML = `
         <div class="col mt-4">
             <div id="${hostCardID}" class="card">
                 <div class="card-header">
                     <img src="imgs/pc.svg" alt="PC" class="card-img-top card-icon"> 
                     <span class="float-end">
-                        <i class="fa-solid fa-circle ${hostData.general.online ? 'fa-circle-on' : 'fa-circle-off'}"></i> ${hostData.general.online ? 'online' : 'offline'}
+                        <i class="fa-solid fa-circle ${hostData.online ? 'fa-circle-on' : 'fa-circle-off'}"></i> ${hostData.online ? 'online' : 'offline'}
                     </span>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">${hostData.general.hostname}</h5>
+                    <h5 class="card-title">${hostData.system.hostname}</h5>
                     <ul class="list-group" style="list-style: none;">
-                        <li>${hostData.general.ip}</li>
-                        <li>${hostData.general.os}</li>
+                        <li>${hostData.addr}</li>
+                        <li>${hostData.system.os}</li>
                     </ul>               
                 </div>
                 <div class="card-footer d-flex flex-row justify-content-end">
@@ -138,21 +138,21 @@ function update_host_card_group() {
 }
 
 function update_host_card(hostData) {
-    const hostCard = document.querySelector(`#host-${hostData.general.id}`);
+    const hostCard = document.querySelector(`#host-${hostData.id}`);
     const hostCardHeader = hostCard.querySelector(".card-header");
     const hostCardBody = hostCard.querySelector(".card-body");
 
     const hostCardHeaderHTML = `
         <img src="imgs/pc.svg" alt="PC" class="card-img-top card-icon"> 
         <span class="float-end">
-            <i class="fa-solid fa-circle ${hostData.general.online ? 'fa-circle-on' : 'fa-circle-off'}"></i> ${hostData.general.online ? 'online' : 'offline'}
+            <i class="fa-solid fa-circle ${hostData.online ? 'fa-circle-on' : 'fa-circle-off'}"></i> ${hostData.online ? 'online' : 'offline'}
         </span>`;
 
     const hostCardBodyHTML = `
-        <h5 class="card-title">${hostData.general.hostname}</h5>
+        <h5 class="card-title">${hostData.system.hostname}</h5>
         <ul class="list-group" style="list-style: none;">
-            <li>${hostData.general.ip}</li>
-            <li>${hostData.general.os}</li>
+            <li>${hostData.addr}</li>
+            <li>${hostData.system.os}</li>
         </ul>`;
 
     hostCardHeader.innerHTML = hostCardHeaderHTML;

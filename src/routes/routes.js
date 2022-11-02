@@ -1,22 +1,22 @@
 import express from 'express';
 
 import auth from '../middlewares/auth.js';
-import hostController from '../controllers/host_controller.js';
+import agentController from '../controllers/agent_controller.js';
 import userController from '../controllers/user_controller.js';
 
 const router = express.Router();
 
 /* Hosts routes */
 
-router.get('/hosts', auth.is_authenticated, hostController.index);
+router.get('/hosts', auth.is_authenticated, agentController.index);
 
-router.post('/hosts', auth.is_authenticated, hostController.create);
+router.post('/hosts', auth.is_authenticated, agentController.create);
 
-router.put('/hosts', auth.is_authenticated, hostController.update);
+router.put('/hosts', auth.is_authenticated, agentController.update);
 
-router.delete('/hosts', auth.is_authenticated, hostController.destroy);
+router.delete('/hosts/:id', auth.is_authenticated, agentController.destroy);
 
-router.get('/hosts/:id', auth.is_authenticated, hostController.read_by_id);
+router.get('/hosts/:id', auth.is_authenticated, agentController.read_by_id);
 
 /* Users routes */
 

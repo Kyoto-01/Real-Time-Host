@@ -15,7 +15,7 @@ class Manager {
         Port on which agents listen for manager requests
     _agentList
         List of agents managed by manager
-    _cUpdateIntv
+    _fUpdateIntv
         Interval that performs a full update in agentList
     _sUpdateIntv
         Interval that performs a summarized update in agentList
@@ -24,10 +24,12 @@ class Manager {
         this._fUpdateTime = fUpdateTime;
         this._sUpdateTime = sUpdateTime;
         this._agentPort = agentPort;
-        this._agentList = agentList;
+        this._agentList = {};
 
-        this._cUpdateIntv = this._full_update_interval();
+        this._fUpdateIntv = this._full_update_interval();
         this._sUpdateIntv = this._summary_update_interval();
+
+        this.agentList = agentList;
     }
 
     get agentList() {
@@ -35,15 +37,55 @@ class Manager {
     }
 
     set agentList(value) {
-        this._agentList = value;
+        this._agentList = {};
+
+        for (let agent of value)
+            this._agentList[agent.id] = agent;
+
+        this._full_update_agents();
     }
 
     has_agents() {
-        return this._agentList.length > 0
+        return this._agentList.length > 0;
+    }
+
+    summary_agents() {
+        const agents = [];
+
+        for (let ag in this._agentList)
+            agents.push(this._summary_agent(this._agentList[ag]));
+
+        return agents;
+    }
+
+    get_agent(id, summary) {
+        const agent = this.agentList[id];
+
+        return summary ? this._summary_agent(agent) : agent;
+    }
+
+    add_agent(agent) {
+        this._agentList[agent.id] = agent;
+    }
+
+    remove_agent(id) {
+        delete this._agentList[id];
+    }
+
+    _summary_agent(agent) {
+        return {
+            "id": agent.id,
+            "addr": agent.addr,
+            "online": agent.online,
+            "system": agent.system || {
+                "hostname": "-",
+                "os": "-",
+            },
+        }
     }
 
     _full_update_interval() {
-        return setInterval(() => this._full_update_agents(), this._cUpdateTime);
+        return setInterval(() => this._full_update_agents(), this._fUpdateTime);
     }
 
     _summary_update_interval() {
@@ -51,18 +93,18 @@ class Manager {
     }
 
     _full_update_agents() {
-        for (let ag of this._agentList) {
-            this._full_fetch_agent(ag);
+        for (let key in this._agentList) {
+            this._full_fetch_agent(this._agentList[key]);
         }
     }
 
     _summary_update_agents() {
-        for (let ag of this._agentList) {
-            this._summary_fetch_agent(ag);
+        for (let key in this._agentList) {
+            this._summary_fetch_agent(this._agentList[key]);
         }
     }
 
-    _full_fetch_agent(agent) {
+    async _full_fetch_agent(agent) {
         const url = `http://${agent.addr}:${this._agentPort}/get`;
         const paths = [""];
         const config = {
@@ -73,9 +115,7 @@ class Manager {
             body: JSON.stringify({ "get": paths }),
         }
 
-        agent.online = false;
-
-        fetch(url, config)
+        await fetch(url, config)
             .then(async (value) => {
                 value = (await value.json())[""];
                 value.id = agent.id;
@@ -83,9 +123,16 @@ class Manager {
                 value.online = true;
                 this._agentList[agent.id] = value;
             })
+            .catch(() => {
+                agent.online = false;
+                agent.system = {
+                    "hostname": "-",
+                    "os": "-",
+                };
+            });
     }
 
-    _summary_fetch_agent(agent) {
+    async _summary_fetch_agent(agent) {
         const url = `http://${agent.addr}:${this._agentPort}/get`;
         const paths = [
             "cpu.clock", "cpu.clock_max", "cpu.clock_min",
@@ -100,21 +147,27 @@ class Manager {
             body: JSON.stringify({ "get": paths }),
         }
 
-        agent.online = false;
-
-        fetch(url, config)
+        await fetch(url, config)
             .then(async (value) => {
                 value = await value.json();
 
                 for (let path in value) {
-                    keys = path.split(".");
+                    const keys = path.split(".");
                     keys.reduce(function (acc, cur) {
-                        return (cur === keys[keys.length - 1] ? acc[cur] = value[path] : acc[cur]);
+                        if (acc)
+                            return (cur === keys[keys.length - 1] ? acc[cur] = value[path] : acc[cur]);
                     }, value);
                 }
-                
+
                 agent.online = true;
             })
+            .catch(() => {
+                agent.online = false
+                agent.system = {
+                    "hostname": "-",
+                    "os": "-",
+                };
+            });
     }
 }
 

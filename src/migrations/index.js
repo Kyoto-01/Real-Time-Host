@@ -16,7 +16,7 @@ async function up() {
     await conn.run(`
         CREATE TABLE IF NOT EXISTS agents (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            addr TEXT NOT NULL,
+            addr TEXT NOT NULL
         )
     `);
 }

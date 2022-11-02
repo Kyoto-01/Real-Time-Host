@@ -1,6 +1,5 @@
 import database from '../db/index.js';
 
-
 async function read_all() {
     const conn = await database.connect();
 
@@ -8,7 +7,7 @@ async function read_all() {
         SELECT
            *
         FROM
-            hosts
+            agents
         ORDER BY
             id DESC
     `;
@@ -24,7 +23,7 @@ async function read_by_id(id) {
         SELECT
             *
         FROM
-            hosts
+            agents
         WHERE
             id = ?
     `;
@@ -32,41 +31,36 @@ async function read_by_id(id) {
     return await conn.get(sql, [id]);
 }
 
-async function create(host) {
+async function create(agent) {
     const conn = await database.connect();
 
     const sql = `
         INSERT INTO
-            hosts (hostname, ip, os, online)
+            agents (addr)
         VALUES
-            (?, ?, ?, ?)
+            (?)
     `;
 
-    const { hostname, ip, os, online } = host;
+    const {addr} = agent;
 
-    const response = await conn.run(sql, [hostname, ip, os, online]);
-
-    return response;
+    return await conn.run(sql, [addr]);
 }
 
-
-async function update(host) {
+async function update(agent) {
     const conn = await database.connect();
-
-    const { id, hostname, ip, os, online } = host;
   
     const sql = `
       UPDATE
-        hosts
+        agents
       SET 
-        hostname = ?, ip = ?, os = ?, online = ?
+        addr = ?
       WHERE
         id = ?
     `;
+
+    const { id, addr } = agent;
   
-    const response = await conn.run(sql, [hostname, ip, os, online, id]);
-  
-    return response;
+    return await conn.run(sql, [addr, id]);
 }
 
 async function remove(id) {
@@ -74,16 +68,13 @@ async function remove(id) {
 
     const sql = `
       DELETE FROM
-        hosts
+        agents
       WHERE
         id = ?
     `;
-  
-    const response = await conn.run(sql, [id]);
 
-    return response;
+    return await conn.run(sql, [id]);
 }
-
 
 export default {
     read_all,
